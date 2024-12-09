@@ -104,11 +104,11 @@ WSGI_APPLICATION = 'structureproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'u297947454_projeto2022',
-        'USER': 'u297947454_projeto2022',
-        'PASSWORD': 'Yzl@6e3+Sjrp',
-        'HOST': '185.28.21.1',  # Ou o IP do servidor
-        'PORT': '3306',       # Porta padrão do MySQL
+        'NAME': config('NAMEBANCO'),
+        'USER': config('USERBANCO'),
+        'PASSWORD': config('PASSWORDBANCO'),
+        'HOST': config('HOSTBANCO'),  # Ou o IP do servidor
+        'PORT': config('PORTBANCO'),  # Porta padrão do MySQL
     }
 }
 
