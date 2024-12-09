@@ -74,33 +74,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'structureproject.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# Mysql connect!
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'u297947454_rcam',
-#         'USER': 'u297947454_rcam',
-#         'PASSWORD': 'RtVa_241304',
-#         'HOST': 'rcamgeo.com.br',  # Ou o IP do servidor
-#         'PORT': '3306',       # Porta padrão do MySQL
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'LoveGeneration',
-#         'USER': 'root',
-#         'PASSWORD': 'Andre2020#',
-#         'HOST': 'localhost',  # Ou o IP do servidor
-#         'PORT': '3306',       # Porta padrão do MySQL
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
