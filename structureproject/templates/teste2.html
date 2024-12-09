@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens</title>
+</head>
+<body>
+    <h1>Imagens do Cliente</h1>
+    <div>
+        {% if imagens %}
+            {% for imagem in imagens %}
+                <img src="{{ imagem }}" alt="Imagem do cliente" style="max-width: 300px; margin: 10px;">
+            {% endfor %}
+        {% else %}
+            <p>Nenhuma imagem encontrada para este cliente.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

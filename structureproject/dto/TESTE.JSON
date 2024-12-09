@@ -1,0 +1,192 @@
+{
+  "accounts_info": None,
+  "acquirer_reconciliation": [],
+  "additional_info": {
+    "bank_info": {
+      "is_same_bank_account_owner": True
+    },
+    "ip_address": "131.196.78.232",
+    "items": [
+      {
+        "id": "1",
+        "quantity": "1",
+        "title": "LoveGeneration standard",
+        "unit_price": "1"
+      }
+    ]
+  },
+  "authorization_code": None,
+  "binary_mode": False,
+  "brand_id": None,
+  "build_version": "3.81.0-rc-1",
+  "call_for_authorize_id": None,
+  "callback_url": None,
+  "captured": True,
+  "card": {},
+  "charges_details": [
+    {
+      "accounts": {
+        "from": "collector",
+        "to": "mp"
+      },
+      "amounts": {
+        "original": 0.01,
+        "refunded": 0
+      },
+      "client_id": 0,
+      "date_created": "2024-12-07T15:25:52.000-04:00",
+      "id": "95627536582-001",
+      "last_updated": "2024-12-07T15:25:52.000-04:00",
+      "metadata": {
+        "source": "rule-engine"
+      },
+      "name": "mercadopago_fee",
+      "refund_charges": [],
+      "reserve_id": None,
+      "type": "fee"
+    }
+  ],
+  "charges_execution_info": {
+    "internal_execution": {
+      "date": "2024-12-07T15:25:52.832-04:00",
+      "execution_id": "01JEH9BS8FKBA8QRM4ENZTDX5R"
+    }
+  },
+  "collector_id": 263804782,
+  "corporation_id": None,
+  "counter_currency": None,
+  "coupon_amount": 0,
+  "currency_id": "BRL",
+  "date_approved": "2024-12-07T15:26:05.000-04:00",
+  "date_created": "2024-12-07T15:25:52.000-04:00",
+  "date_last_updated": "2024-12-07T15:26:10.000-04:00",
+  "date_of_expiration": "2024-12-08T15:25:52.000-04:00",
+  "deduction_schema": None,
+  "description": "LoveGeneration standard",
+  "differential_pricing_id": None,
+  "external_reference": "9b36955e856863ad18cd",
+  "fee_details": [
+    {
+      "amount": 0.01,
+      "fee_payer": "collector",
+      "type": "mercadopago_fee"
+    }
+  ],
+  "financing_group": None,
+  "id": 95627536582,
+  "installments": 1,
+  "integrator_id": None,
+  "issuer_id": "12501",
+  "live_mode": True,
+  "marketplace_owner": None,
+  "merchant_account_id": None,
+  "merchant_number": None,
+  "metadata": {},
+  "money_release_date": "2024-12-07T15:26:05.000-04:00",
+  "money_release_schema": None,
+  "money_release_status": "released",
+  "notification_url": None,
+  "operation_type": "regular_payment",
+  "order": {
+    "id": "25849932757",
+    "type": "mercadopago"
+  },
+  "payer": {
+    "email": "XXXXXXXXXXX",
+    "entity_type": None,
+    "first_name": None,
+    "id": "2063323618",
+    "identification": {
+      "number": None,
+      "type": None
+    },
+    "last_name": None,
+    "operator_id": None,
+    "phone": {
+      "number": None,
+      "extension": None,
+      "area_code": None
+    },
+    "type": None
+  },
+  "payment_method": {
+    "id": "pix",
+    "issuer_id": "12501",
+    "type": "bank_transfer"
+  },
+  "payment_method_id": "pix",
+  "payment_type_id": "bank_transfer",
+  "platform_id": None,
+  "point_of_interaction": {
+    "application_data": {
+      "name": "checkout-off",
+      "version": "v2"
+    },
+    "business_info": {
+      "branch": "Merchant Services",
+      "sub_unit": "checkout_pro",
+      "unit": "online_payments"
+    },
+    "sub_type": "INTER_PSP",
+    "transaction_data": {
+      "bank_info": {
+        "collector": {
+          "account_holder_name": "Andre Luiz Martins Dias",
+          "account_id": 51192362436,
+          "long_name": "Mercadopago.com Representações Ltda.",
+          "transfer_account_id": None
+        },
+        "is_same_bank_account_owner": True,
+        "origin_bank_id": None,
+        "origin_wallet_id": None,
+        "payer": {
+          "account_id": 577171953,
+          "branch": "1",
+          "external_account_id": None,
+          "id": None,
+          "identification": {},
+          "long_name": "Nu Pagamentos S.A."
+        }
+      },
+      "bank_transfer_id": 112182063441,
+      "e2e_id": None,
+      "financial_institution": 1,
+      "infringement_notification": {
+        "status": None,
+        "type": None
+      },
+      "qr_code": "00020126580014br.gov.bcb.pix0136617c60e2-e4ac-4a30-834f-2ab7eb1eab6852040000530398654041.005802BR5911ANDREDIAS226014So Benedito da62240520mpqrinter956275365826304BC2D",
+      "qr_code_base64": "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",
+      "ticket_url": "https://www.mercadopago.com.br/payments/95627536582/ticket?caller_id=2063323618&hash=dc7d48c8-ce0e-42ef-aaaa-265b58d16330",
+      "transaction_id": "PIXE18236120202412071925s03244a7bcd"
+    },
+    "type": "CHECKOUT"
+  },
+  "pos_id": None,
+  "processing_mode": "aggregator",
+  "refunds": [],
+  "release_info": None,
+  "shipping_amount": 0,
+  "sponsor_id": None,
+  "statement_descriptor": None,
+  "status": "approved",
+  "status_detail": "accredited",
+  "store_id": None,
+  "tags": None,
+  "taxes_amount": 0,
+  "transaction_amount": 1,
+  "transaction_amount_refunded": 0,
+  "transaction_details": {
+    "acquirer_reference": None,
+    "bank_transfer_id": 112182063441,
+    "external_resource_url": None,
+    "financial_institution": "1",
+    "installment_amount": 0,
+    "net_received_amount": 0.99,
+    "overpaid_amount": 0,
+    "payable_deferral_period": None,
+    "payment_method_reference_id": None,
+    "total_paid_amount": 1,
+    "transaction_id": "PIXE18236120202412071925s03244a7bcd"
+  }
+}

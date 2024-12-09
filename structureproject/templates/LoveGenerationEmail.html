@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem de Amor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #ff5f85;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 26px;
+            margin: 0;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .btn-love {
+            display: inline-block;
+            padding: 14px 160px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ff5f85;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .btn-love:hover {
+            background-color: #ff3f66;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .link-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>LoveGeneration ❤️</h1>
+        </div>
+        <div class="content">
+            <p>{{ message }}</p>
+            <br>
+            <a href="{{ link }}" class="btn-love" target="_blank">Acesse seu link clicando Aqui!</a>
+            <p>Com o ID da sua compra, você pode acessar todas as informações sobre o pedido diretamente no site, a
+                qualquer momento.</p>
+            <div class="link-container">
+                <p><strong>ID da Compra:</strong> {{ IdCompra }}</p>
+            </div>
+            <br>
+            <p>Voce pode verificar o Status e a info de sua pagina aqui!</p>
+            <a href="127.0.0.1:8000/produto/visualizar/" class="btn-love" target="_blank">Clique Aqui!</a>
+        </div>
+        <div class="footer">
+            <p>Com carinho, <br>Equipe LoveGeneration</p>
+        </div>
+    </div>
+</body>
+
+</html>

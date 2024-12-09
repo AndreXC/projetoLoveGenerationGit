@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveGeneration - Surpreenda quem você ama</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- Efeito de corações -->
+        <div class="hearts"></div>
+
+        <!-- Modal -->
+        <div id="loveModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 class="modal-title">Atenção</h2>
+                <p class="modal-message">Esta é uma mensagem de erro ou aviso.</p>
+                <button class="modal-btn">Fechar</button>
+            </div>
+        </div>
+
+
+
+        <header class="header">
+            <h1>Bem-vindo ao LoveGeneration</h1>
+            <div class="Mensagem1">
+                <p>
+                    No <strong>LoveGeneration</strong>, transformamos seus sentimentos em experiências memoráveis.
+                    Surpreenda quem você ama com uma página personalizada que não só reflete carinho e afeto, mas também
+                    captura momentos especiais de forma única e inovadora.
+                </p>
+                <p>
+                    Imagine a alegria do seu parceiro(a) ao acessar um site feito exclusivamente para ele(a), repleto de
+                    mensagens sinceras, fotos inesquecíveis e uma demonstração clara do quanto ele(a) significa para
+                    você. Este é mais do que um presente; é uma expressão do seu amor, uma forma de dizer "eu te amo" de
+                    maneira única e especial. Faça desse momento algo verdadeiramente inesquecível!
+                </p>
+            </div>
+
+            <h1>Personalize sua mensagem</h1>
+            <ul>
+                <li><strong>Nome do parceiro(a):</strong> 💖 Este campo permite que o usuário insira o nome da pessoa
+                    amada, personalizando a página com um toque pessoal.</li>
+                <li><strong>Email:</strong> 📧 O campo de email deve ser preenchido, pois, após a compra, as informações
+                    serão enviadas para o endereço de email fornecido. Certifique-se de inserir um email válido para
+                    receber todos os detalhes da sua compra.</li>
+                <li><strong>Sua mensagem de amor:</strong> 💌 Um espaço para o usuário escrever uma mensagem romântica
+                    ou especial, que será apresentada na página.</li>
+                <li><strong>Botão "Gere sua Mensagem aqui!":</strong> ✨ Este botão permite ao usuário gerar uma mensagem
+                    personalizada por IA caso ele/a queira um modelo de mensagem pronto, tornando a experiência mais
+                    interativa.</li>
+                <li><strong>Seleção de flores:</strong> 🌸 O usuário pode escolher entre diferentes imagens de flores,
+                    que adicionam um toque visual e simbólico à sua mensagem.</li>
+                <li><strong>Carregamento de fotos:</strong> 📸 Uma área para que o usuário faça upload de imagens
+                    pessoais, como fotos com o parceiro(a), tornando a página ainda mais única e especial.</li>
+                <li><strong>Data de início e final do namoro:</strong> 🗓️ Caso o usuário deseje adicionar a data de
+                    início e final do namoro na página personalizada, ele pode selecionar o checkbox "Deseja adicionar
+                    data e hora do início do namoro?". Após marcar essa opção, o usuário poderá inserir as datas e horas
+                    correspondentes, criando um toque ainda mais especial e significativo para a sua página.</li>
+                <li><strong>Escolha de serviços:</strong> 🎁 O usuário pode selecionar entre diferentes pacotes de
+                    serviços que incluem uma página personalizada e QR Code. Isso permite uma escolha flexível e
+                    adaptada às suas necessidades.</li>
+            </ul>
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                <ol class="carousel-indicators">
+                    <li style="height: 0px !important;" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li style="height: 0px !important;" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li style="height: 0px !important;" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="{% static 'img/flores/flor.png' %}" alt="Primeiro Slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="{% static 'img/flores/flor2.png' %}" alt="Segundo Slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="{% static 'img/flores/flor3.png' %}" alt="Terceiro Slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Próximo</span>
+                </a>
+            </div>
+
+        </header>
+
+
+
+        <section class="input-section">
+            <h2>Personalize sua mensagem</h2>
+            <form id="loveForm" action="{% url 'Checkin' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-wrapper">
+                    <input type="text" id="nome" name="nome" class="input-field" placeholder=" ">
+                    <label for="nome" class="input-label">Nome do parceiro(a):</label>
+                </div>
+
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="email" class="input-field" placeholder=" ">
+                    <label for="email" class="input-label">email:</label>
+                </div>
+
+                <div class="textarea-wrapper">
+                    <textarea id="mensagem" name="mensagem" class="textarea-field" placeholder=" "></textarea>
+                    <label for="mensagem" class="textarea-label">Sua mensagem de amor:</label>
+                </div>
+
+                <button id="generateMessageBtn" type="button" class="animated-button">Gere sua Mensagem aqui!</button>
+
+                <div class="flower-selection">
+                    <h3>Selecione uma flor:</h3>
+                    <div class="flower-box-container">
+                        <div class="flower-box" data-flower="flower1"
+                            style="background-image: url('./../static/Img/flores/flor1-FundoBranco.png');"></div>
+                        <div class="flower-box" data-flower="flower2"
+                            style="background-image: url('./../static/Img/flores/flor2-FundoBranco.png');"></div>
+                        <div class="flower-box" data-flower="flower3"
+                            style="background-image: url('./../static/Img/flores/flor3-fundobranco.png');"></div>
+                    </div>
+                </div>
+
+                <div class="dropzone" id="imageDropzone">
+                    <h3>Carregue suas fotos</h3>
+                    <p>Arraste e solte ou clique para carregar (JPG, PNG, JPEG, GIF)</p>
+                    <input type="file" id="fileInput" name="images" accept=".jpg, .jpeg, .png, .gif" multiple>
+                    <ul id="fileList"></ul>
+                </div>
+
+                <!-- Checkbox para adicionar data e hora -->
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="addDateTime" class="checkbox-field">
+                    <label for="addDateTime" class="checkbox-label">Deseja adicionar data e hora do início do
+                        namoro?</label>
+                </div>
+
+                <!-- Campos de data e hora condicionais -->
+                <div id="dateTimeSection" class="date-time-section" style="display: none;">
+                    <div class="date-time-wrapper">
+                        <div class="inputdate-wrapper">
+                            <input type="date" id="dateInput" name="dateInput" class="inputdate-field">
+                            <label for="dateInput" class="inputdate-label">Data de início:</label>
+                        </div>
+                        <div class="inputhora-wrapper">
+                            <input type="time" id="timeInput" name="timeInput" class="inputhora-field">
+                            <label for="timeInput" class="inputhora-label">Hora de início:</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Seção de serviços -->
+                <div class="service-selection">
+                    <h3>Escolha um serviço:</h3>
+                    <label>
+                        <input type="radio" name="service" style="width: 2% !important; position: relative; top:1px"
+                            value="8" checked>
+                        <p class="ServiceParagrafo">Página personalizada para surpreender seu amor + Musica romantica
+                            (no copyright song)</p>
+                    </label>
+                    <label>
+                        <input type="radio" name="service" style="width: 2% !important; position: relative; top:1px"
+                            value="12">
+                        <p class="ServiceParagrafo">Página personalizada para surpreender seu amor + QR Code para link
+                            da página com moldura personalizada com o nome do seu parceiro + Musica romantica (no
+                            copyright song)</p>
+                    </label>
+                </div>
+
+                <button id="submitBtn" type="submit">Prosseguir ❤️</button>
+                <div id="loadingCircle" class="loading" style="display: none;"></div>
+
+            </form>
+        </section>
+
+
+        <!-- Rodapé com uma mensagem de impacto -->
+        <footer class="footer">
+            <p>
+                <strong>LoveSite</strong> - Onde o amor ganha forma e cor. Surpreenda quem você ama todos os dias!
+            </p>
+        </footer>
+    </div>
+
+    <!-- Script para o efeito de corações -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/HearthScript.js' %}"></script>
+    <script src="{% static 'js/flower.js' %}"></script>
+    <script src="{% static 'js/checkBoxDate.js' %}"></script>
+    <script src="{% static 'js/dropzone.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+    <script src="{% static 'js/MensagensLove.js' %}"></script>
+    <script src="{% static 'js/priceLove.js' %}"></script>
+    <script src="{% static 'js/circle.js' %}"></script>
+    <script src="{% static 'js/OnSubmitForm.js' %}"></script>
+
+
+
+</body>
+
+</html>

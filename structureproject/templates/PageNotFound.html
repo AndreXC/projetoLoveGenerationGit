@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/404NotFound.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <p class="message">Página não encontrada 💔</p>
+        <p class="description">
+            Parece que você está perdido em um caminho de amor. <br>
+            Clique no botão para voltar ao início ❤
+        </p>
+        <button class="back-button" onclick="redirectToHome()">Voltar para Pagina Principal</button>
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "{% url 'Index' %}";
+        }
+    </script>
+</body>
+</html>

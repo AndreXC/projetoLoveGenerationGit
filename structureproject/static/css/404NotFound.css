@@ -1,0 +1,62 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(145deg, #1b1b1b, #ff0033);
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #ff0033;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 8rem;
+    color: #ff0033;
+    text-shadow: 3px 3px 5px black;
+}
+
+.message {
+    font-size: 1.8rem;
+    margin: 10px 0;
+    color: #ffcccc;
+}
+
+.description {
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+button.back-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background: #ff0033;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button.back-button:hover {
+    background: #ff6666;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+button.back-button:active {
+    transform: scale(0.95);
+}

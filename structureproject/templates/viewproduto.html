@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveGeneration - Busca de Pedido</title>
+    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/ViewProduto.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <span class="logo">LoveGeneration ❤️</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Digite o ID do pedido..." aria-label="Buscar pedido" required>
+            <button id="search-button" onclick="searchOrder()"> 
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+        <div id="loading-spinner" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+
+        <div id="result-container" class="result-container">
+            <p id="order-info"></p>
+
+            <div id="qrcode-container">
+                <h2>QR Code:</h2>
+                <!-- A imagem do QR Code será inserida aqui -->
+                <img id="qrcode-image" alt="QR Code" style="max-width: 200px;">
+                <br>
+                <a id="download-link" href="" download="">Baixar QR Code</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                <strong>LoveSite</strong> - Onde o amor ganha forma e cor. Surpreenda quem você ama todos os dias!
+            </p>
+
+            <p>Realize uma busca na sua página e verifique as informações relacionadas ao pagamento, utilizando o <strong>ID de referência</strong> da compra para localizar os dados sobre a pagina.</p>
+        </footer>
+    
+    </main>
+    <script src="{% static 'js/ViewPageScript.js' %}"></script>
+</body>
+</html>

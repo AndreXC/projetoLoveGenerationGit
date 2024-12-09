@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/LovePage.css' %}">
+    <title>Sua Pagina Amor!</title>
+</head>
+
+<body>
+    <div class="hearts"></div>
+
+    <!-- Botão de Música -->
+    <!-- <div class="music-icon paused" id="musicIcon">''
+        <img src="musical-note.png" alt="">
+    </div> -->
+
+    <div class="container">
+        <div class="bouquet">
+            {% if JsonMensagem.flor == 'flower1' %}
+            <img src="{% static 'img/flores/flor.png' %}" alt="Buquê de Rosas">
+            {% endif %}
+            {% if JsonMensagem.flor == 'flower2' %}
+            <img src="{% static 'img/flores/flor2.png' %}" alt="Buquê de Rosas">
+            {% endif %}
+            {% if JsonMensagem.flor == 'flower3' %}
+            <img src="{% static 'img/flores/flor3.png' %}" alt="Buquê de Rosas">
+            {% endif %}
+        </div>
+
+        <div class="envlope-wrapper">
+            <div id="envelope" class="close">
+                <div class="front flap"></div>
+                <div class="front pocket">
+                    <div class="reset">
+                        <button id="open" type="button">Veja Minha Mensagem de Amor!</button>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="words line1"></div>-
+                    <div class="words line2"></div>
+                    <div class="words line3"></div>
+                    <div class="words line4"></div>
+                </div>
+
+                {% if JsonMensagem.data != '' and JsonMensagem.hour != '' %}
+                    <div id="containerNamoro" class="container_tempo_namoro">
+                        <h1>Tempo que estamos juntos, meu amor {{ JsonMensagem.nome }} ❤️</h1>
+                        <p>Já estamos juntos há:</p>
+                        <p class="time" id="time-display"></p>
+                    </div>
+
+                    <script>
+                        document.getElementById('containerNamoro').style.visibility = 'visible !important';
+                        const DateVar = '{{ JsonMensagem.data }}';
+                        const hourvar = '{{ JsonMensagem.hour }}';
+                        calculateTimeDifference(DateVar, hourvar);
+                    </script>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="loveModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <div class="carousel-container">
+                <div class="carousel">
+                    {% if dadosImageMensagem %}
+                    {% for imagem, mensagem in dadosImageMensagem %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ imagem }}" alt="Imagem Romântica">
+                        <p class="caption">{{ mensagem }}</p>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Minha Mensagem de Amor</h2>
+            <p>{{ JsonMensagem.mensagem }}</p>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/HearthScript.js' %}"></script>
+<script src="{% static 'js/animationFlower.js' %}"></script>
+<script src="{% static 'js/ModalPageLove.js' %}"></script>
+<!-- <script src="{% static 'js/music.js' %}"></script> -->
+<script src="{% static 'js/TimeLove.js' %}"></script>
+<script src="{% static 'js/carrosseulImage.js' %}"></script>
+
+</html>
