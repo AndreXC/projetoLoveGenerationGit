@@ -47,6 +47,18 @@ class SaveArquivosBlob:
             return True, '', imagens
 
         except Exception as e:
-            self.StrErr = f'[SaveArquivosBlob]-> __extractArqAll__ erro: {e.__context__}'
+            self.StrErr = f'[SaveArquivosBlob]-> __extractArqAll__ erro: {e.__context__} : {e.args[0]}'
             return False, self.StrErr, []
+           
+
+    def __delete__(self, id: str):
+        try:
+            arquivos = self.instanciaArquivo.objects.filter(id_cliente=id)
+            # Deletar os arquivos encontrados
+            arquivos.delete()
+            return True, ''
+        
+        except Exception as e:
+            self.StrErr = f'[SaveArquivosBlob]-> __delete__ erro: {e.__context__} : {e.args[0]}'
+            return False, self.StrErr
            

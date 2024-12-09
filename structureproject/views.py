@@ -75,9 +75,11 @@ def CreatePayment(request):
         return redirect(objectResultProduto.init_point)
     
     except Exception as e:
-        Error.objects.create(
-        error_type=type(e).__name__,
-        details=e)
+        instanceError: Error = Error(
+                error_type=type(e).__name__,
+                details=e.args[0]
+            )
+        instanceError.save()
         request.session['Mensagem'].clear()
         return render(request, 'index.html', {'CreatePaymentError': True})
 
@@ -146,7 +148,6 @@ def mercado_pago_webhook(request):
             response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
 
             if not response:
-                #avisa o Webhook que não foi sucedido!
                 return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
            
             objectResultProduto:PaymentData = PaymentData.from_json(response)
@@ -170,12 +171,33 @@ def mercado_pago_webhook(request):
                 case 'pending':
                     InstanceCompraCliente.status_compra = "pending" 
                     InstanceCompraCliente.save()
-                    
-                    #instancePaymentPending:PaymentPending = PaymentPending(email=InstanceCompraCliente.dados_requisicao, .)
+
+                    JsonMensagem:dict = json.loads(InstanceCompraCliente.dados_requisicao.replace("'", "\""))
+                    instancePaymentPending:PaymentPending = PaymentPending(email=JsonMensagem['email'], qrcode=objectResultProduto.qr_code, name=objectResultProduto.name, external_reference=InstanceCompraCliente.token_referencia)
+                    result, StrErr = instancePaymentPending.__SendEmail__()
+                    if not result and StrErr !='':
+                        instanceError: Error = Error(
+                                error_type= 'PaymentPendingClass',
+                                details=StrErr
+                            )
+                        instanceError.save()
+
                 case 'rejected':
                     InstanceCompraCliente.status_compra = 'rejected' 
                     InstanceCompraCliente.save()
-                        
+
+                    JsonMensagem: json = json.loads(InstanceCompraCliente.dados_requisicao.replace("'", "\""))
+                    instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
+                    result, StrErr = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
+                    if not result and StrErr !='':
+                        instanceError: Error = Error(
+                                error_type= 'instanceSaveTblob.__extractArqAll__',
+                                details=StrErr
+                            )
+                        instanceError.save()
+    
+
+
             # Confirma que o webhook foi processado
             return JsonResponse({"status": "success"}, status=200)
 

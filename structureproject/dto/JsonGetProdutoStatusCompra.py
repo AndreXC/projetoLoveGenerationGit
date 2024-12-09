@@ -9,7 +9,14 @@ class PaymentData:
             data.get("payment_method", {}).get("id")
         )
         
-        self.name: Optional[str] =   (data.get('point_of_interaction').get('transaction_data').get('bank_info').get('collector').get('account_holder_name'))
+        self.name: Optional[str] = (
+            data.get('point_of_interaction', {})
+                .get('transaction_data', {})
+                .get('bank_info', {})
+                .get('collector', {})
+                .get('account_holder_name')
+        )
+
         self.description: Optional[str] = data.get("description")
         self.qr_code: Optional[str] = (
             data.get("point_of_interaction", {})
