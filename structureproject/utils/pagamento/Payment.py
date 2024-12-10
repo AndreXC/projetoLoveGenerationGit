@@ -7,7 +7,7 @@ class PaymentLinkGenerator:
         # Inicializa o SDK do MercadoPago com a chave de autenticação
         self.sdk = mercadopago.SDK(config('ChaveSdkMercadoPagoProd'))
         self.secrete:str = secrets.token_hex(10) 
-        self.Success: str= "https://meusite.com/Aproved"
+        self.Success: str= "http://127.0.0.1:8000/Aproved"
         self.failure:str ="https://meusite.com/falilure"
         self.pending:str = "https://meusite.com/Aproved"    
 

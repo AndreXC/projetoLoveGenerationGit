@@ -1,48 +1,97 @@
+from typing import Tuple, Any
+from ModelSite.models import Compra
+from ...utils.posPayment.posPagamento import createEstruturaProject
 import json
-from ModelSite.models import Compra, Error, paymentNotProcess
-from utils.posPayment.posPagamento import createEstruturaProject
-from utils.Paymentpending.paymentpending import PaymentPending
-from dto.JsonGetProdutoStatusCompra import PaymentData
-from comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
+from ...utils.Paymentpending.paymentpending import PaymentPending
+from ...dto.JsonGetProdutoStatusCompra import PaymentData
+from ...comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 
-class OrderStatusHandler:
-    def __init__(self, payment_service, storage_service):
-        self.payment_service:createEstruturaProject = payment_service
-        self.storage_service: SaveArquivosBlob= storage_service
 
-    def approved(self, compra_cliente: Compra) -> None:
+class CompraRepository:
+    """Responsável por interações com a base de dados relacionadas às compras."""
+    def get_compra(self, external_reference: str) -> Compra:
         try:
-            result, str_err = self.payment_service.__createMensagem__(compra_cliente.token_referencia)
-            if not result:
-                raise ValueError(str_err)
+            return Compra.objects.get(token_referencia=external_reference)
+        except Compra.DoesNotExist:
+            raise ValueError("Compra não encontrada para o token fornecido.")
+
+
+class PaymentProcessor:
+    """Processador de pagamentos com a lógica específica para cada situação."""
+    def __init__(self):
+        self.compra_repository = CompraRepository()
+
+    def handle_approved(self, external_reference: str, payment_id: str) -> Tuple[bool, Any]:
+        try:
+            compra = self.compra_repository.get_compra(external_reference)
+            compra.status_compra = "approved"
+            compra.clienteId = payment_id
+            compra.save()
+
+            pos_payment_instance = createEstruturaProject(external_reference)
+            result, StrErr = pos_payment_instance.__createMensagem__()
+            
+            return result, StrErr
         except Exception as e:
-            payment_not_processed = paymentNotProcess(
-                token_referencia=compra_cliente.token_referencia,
-                status_compra=compra_cliente.status_compra,
-                clienteId=compra_cliente.clienteId,
-                details=f"Erro: {e}",
+            return False, f"Erro ao processar pagamento aprovado: {e}"
+
+    def handle_pending(self, external_reference: str, payment_data: PaymentData) -> Tuple[bool, Any]:
+        try:
+            compra = self.compra_repository.get_compra(external_reference)
+            compra.status_compra = "pending"
+            compra.save()
+
+            json_message = json.loads(compra.dados_requisicao.replace("'", "\""))
+            payment_pending_instance = PaymentPending(
+                email=json_message['email'],
+                qrcode=payment_data.qr_code,
+                name=payment_data.name,
+                external_reference=compra.token_referencia,
             )
-            payment_not_processed.save()
-
-    def pending(self, compra_cliente: Compra, produto_data: PaymentData) -> None:
-        try:
-            json_message = json.loads(compra_cliente.dados_requisicao.replace("'", "\""))
-            email_status = self.payment_service.send_email(
-                email=json_message['email'], 
-                qrcode=produto_data.qr_code,
-                name=produto_data.name,
-                external_reference=compra_cliente.token_referencia,
-            )
-            if not email_status:
-                raise ValueError("Falha ao enviar email.")
+            result, StrErr = payment_pending_instance.__SendEmail__()
+            return result, StrErr
         except Exception as e:
-            error = Error(error_type="PaymentPending", details=str(e))
-            error.save()
+            return False, f"Erro ao processar pagamento pendente: {e}"
 
-    def rejected(self, compra_cliente: Compra) -> None:
+    def handle_rejected(self, external_reference: str) -> Tuple[bool, Any]:
         try:
-            json_message = json.loads(compra_cliente.dados_requisicao.replace("'", "\""))
-            self.storage_service.extract_all_files(json_message['idfotosSalvas'])
+            compra = self.compra_repository.get_compra(external_reference)
+            compra.status_compra = "rejected"
+            compra.save()
+
+            json_message = json.loads(compra.dados_requisicao.replace("'", "\""))
+            save_blob_instance = SaveArquivosBlob()
+            result, StrErr = save_blob_instance.__delete__(json_message['idfotosSalvas'])
+            return result, StrErr 
         except Exception as e:
-            error = Error(error_type="FileExtraction", details=str(e))
-            error.save()
+            return False, f"Erro ao processar pagamento rejeitado: {e}"
+
+
+class OrdemStatusService:
+    """Classe principal de controle, orquestrando a lógica de pagamentos com abstração."""
+    def __init__(self):
+        self.Instancepayment_processor:PaymentProcessor = PaymentProcessor()
+      
+
+    def process_response(self, payment_id: str, response: dict) -> Tuple[bool, Any]:
+        if not response:
+            raise ValueError('Resposta inválida ou sem dados.')
+
+        try:
+            object_result = PaymentData.from_json(response)
+            status = object_result.status
+
+            match status: 
+                case "approved":
+                    result, strErr = self.Instancepayment_processor.handle_approved(object_result.external_reference, payment_id)
+                    return  result, strErr
+                case "pending":
+                    result, strErr = self.Instancepayment_processor.handle_pending(object_result.external_reference, object_result)
+                    return  result, strErr
+                case "rejected":
+                    result, strErr= self.Instancepayment_processor.handle_rejected(object_result.external_reference, object_result)
+                    return  result, strErr 
+                case _:
+                    raise ValueError("Status do pagamento desconhecido")
+        except Exception as e:
+            raise ValueError(f"Erro ao processar resposta: {e}")

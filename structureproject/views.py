@@ -3,24 +3,24 @@ from django.http import JsonResponse
 from .comuns.comuns import dict_services, moeda, idpadrao, quantidadePadrao, HostPagina, getMensagens   
 from .dto.Jsonobjetoproduto import TJsonProdutosPost
 from .dto.jsontoobjectGetproduto import TJSONGetProduto
-from .dto.JsonGetProdutoStatusCompra import PaymentData
 from .utils.pagamento.Payment import PaymentLinkGenerator
 from .utils.checandoPagamento.checkPayment import PaymentCheck
 from typing import Union
 from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro
-
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .utils.posPayment.posPagamento import createEstruturaProject
-from .utils.Paymentpending.paymentpending import PaymentPending
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 import base64
+from .dto.JsonGetProdutoStatusCompra import PaymentData
+from .utils.Status.status import  OrdemStatusService
+
+
 
 
 
 
 def index(request):
-    return render(request, 'teste.html')
+    return render(request, 'index.html')
 
 
 def ViewProdutoStatus(request):
@@ -29,22 +29,45 @@ def ViewProdutoStatus(request):
         
 
 
-# def _PaymentAproved_(request):
-#     payment_data = {
-#         'collection_id': request.GET.get('collection_id'),
-#         'collection_status': request.GET.get('collection_status'),
-#         'payment_id': request.GET.get('payment_id'),
-#         'status': request.GET.get('status'),
-#         'external_reference': request.GET.get('external_reference'),
-#         'payment_type': request.GET.get('payment_type'),
-#         'merchant_order_id': request.GET.get('merchant_order_id'),
-#         'preference_id': request.GET.get('preference_id'),
-#         'site_id': request.GET.get('site_id'),
-#         'processing_mode': request.GET.get('processing_mode'),
-#         'merchant_account_id': request.GET.get('merchant_account_id'),
-#     }
-#     PaymentAprovedCard.objects.create(**payment_data)
+def _PaymentAproved_(request):
+    payment_data = {
+        'collection_id': request.GET.get('collection_id'),
+        'collection_status': request.GET.get('collection_status'),
+        'payment_id': request.GET.get('payment_id'),
+        'status': request.GET.get('status'),
+        'external_reference': request.GET.get('external_reference'),
+        'payment_type': request.GET.get('payment_type'),
+        'merchant_order_id': request.GET.get('merchant_order_id'),
+        'preference_id': request.GET.get('preference_id'),
+        'site_id': request.GET.get('site_id'),
+        'processing_mode': request.GET.get('processing_mode'),
+        'merchant_account_id': request.GET.get('merchant_account_id'),
+    }
+    
+    if payment_data['payment_id']:
+        CheckStatusInstance: PaymentCheck = PaymentCheck(payment_data['payment_id'])
+        response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
 
+        if not response:
+            return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
+        
+        instanciaOrdemStatusService:OrdemStatusService =  OrdemStatusService()
+        result, StrErr = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
+        if not result and StrErr != '':
+            InstanceCompraCliente= PaymentData.from_json(response)
+            instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
+                token_referencia=InstanceCompraCliente.external_reference,
+                status_compra=InstanceCompraCliente.status,
+                clienteId=payment_data['payment_id'],
+                details='Erro: ' + str(StrErr)
+            )
+            instancepaymentNotProcess.save()
+            return JsonResponse({"status": "failed"}, status=400)
+
+        # Confirma que o webhook foi processado
+        return JsonResponse({"status": "success"}, status=200)
+    
+    
 
 
 
@@ -148,71 +171,33 @@ def mercado_pago_webhook(request):
             response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
 
             if not response:
-                return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
-           
-            objectResultProduto:PaymentData = PaymentData.from_json(response)
-            InstanceCompraCliente: Compra = Compra.objects.get(token_referencia=objectResultProduto.external_reference)
-            match objectResultProduto.status:
-                case 'approved':
-                    InstanceCompraCliente.status_compra = "approved"
-                    InstanceCompraCliente.clienteId =  payment_id
-                    InstanceCompraCliente.save()
-                    instancePosPayment : createEstruturaProject =  createEstruturaProject(InstanceCompraCliente.token_referencia)
-                    result, StrErr = instancePosPayment.__createMensagem__()
-                    if not result and StrErr != '':
-                        instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
-                            token_referencia=InstanceCompraCliente.token_referencia,
-                            status_compra=InstanceCompraCliente.status_compra,
-                            clienteId=InstanceCompraCliente.clienteId,
-                            details='Erro: ' + str(StrErr)
-                        )
-                        instancepaymentNotProcess.save()
-                        return JsonResponse({"status": "failed"}, status=400)
-                case 'pending':
-                    InstanceCompraCliente.status_compra = "pending" 
-                    InstanceCompraCliente.save()
-
-                    JsonMensagem:dict = json.loads(InstanceCompraCliente.dados_requisicao.replace("'", "\""))
-                    instancePaymentPending:PaymentPending = PaymentPending(email=JsonMensagem['email'], qrcode=objectResultProduto.qr_code, name=objectResultProduto.name, external_reference=InstanceCompraCliente.token_referencia)
-                    result, StrErr = instancePaymentPending.__SendEmail__()
-                    if not result and StrErr !='':
-                        instanceError: Error = Error(
-                                error_type= 'PaymentPendingClass',
-                                details=StrErr
-                            )
-                        instanceError.save()
-
-                case 'rejected':
-                    InstanceCompraCliente.status_compra = 'rejected' 
-                    InstanceCompraCliente.save()
-
-                    JsonMensagem: json = json.loads(InstanceCompraCliente.dados_requisicao.replace("'", "\""))
-                    instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
-                    result, StrErr = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
-                    if not result and StrErr !='':
-                        instanceError: Error = Error(
-                                error_type= 'instanceSaveTblob.__extractArqAll__',
-                                details=StrErr
-                            )
-                        instanceError.save()
+               return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
+            
+            instanciaOrdemStatusService:OrdemStatusService =  OrdemStatusService()
+            result, StrErr = instanciaOrdemStatusService.process_response(payment_id, response)
+            if not result and StrErr != '':
+                InstanceCompraCliente= PaymentData.from_json(response)
+                instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
+                    token_referencia=InstanceCompraCliente.external_reference,
+                    status_compra=InstanceCompraCliente.status,
+                    clienteId=payment_id,
+                    details='Erro: ' + str(StrErr)
+                )
+                instancepaymentNotProcess.save()
+                return JsonResponse({"status": "failed"}, status=400)
     
-
-
             # Confirma que o webhook foi processado
             return JsonResponse({"status": "success"}, status=200)
-
+           
     # Retorna erro se a notificação não for válida
     return JsonResponse({"status": "failed"}, status=400)
 
 
 def CreatePage(request, referencia, token):
     try:
-        #Buscar  o registro no banco de dados pelo token
         InstanceCliente: Compra = Compra.objects.get(token_referencia=referencia, TokenLove= token)
         if InstanceCliente.status_compra == 'approved':
-            #transformando json String em json valido
-            JsonMensagem: json = json.loads(InstanceCliente.dados_requisicao.replace("'", "\""))
-            
+            JsonMensagem: json = json.loads(InstanceCliente.dados_requisicao.replace("'", "\""))            
             instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
             result, strErr, images = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
             if not result and strErr !='':
