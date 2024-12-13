@@ -47,10 +47,8 @@ def _Status_(request):
     if payment_data['payment_id']:
         CheckStatusInstance: PaymentCheck = PaymentCheck(payment_data['payment_id'])
         response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
-
-        if not response:
-            return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
         
+
         instanciaOrdemStatusService:OrdemStatusService =  OrdemStatusService()
         result, StrErr, status = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
         if not result and StrErr != '':
