@@ -47,8 +47,16 @@ def _Status_(request):
     if payment_data['payment_id']:
         CheckStatusInstance: PaymentCheck = PaymentCheck(payment_data['payment_id'])
         response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
+        if not response:
+            instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
+                token_referencia=payment_data['external_reference'],
+                status_compra=payment_data['status'],
+                clienteId= payment_data['payment_id'],
+                details='Response Vazio'
+            )
+            instancepaymentNotProcess.save()
+            return render(request, 'index.html', {'CompraErro':True, 'id': payment_data['payment_id'], 'ExternalReference': payment_data['external_reference']})
         
-
         instanciaOrdemStatusService:OrdemStatusService =  OrdemStatusService()
         result, StrErr, status = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
         if not result and StrErr != '':

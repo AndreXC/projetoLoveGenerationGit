@@ -74,13 +74,9 @@ class OrdemStatusService:
       
 
     def process_response(self, payment_id: str, response: dict) -> Tuple[bool, Any]:
-        if not response:
-            raise ValueError('Resposta inválida ou sem dados.')
-
         try:
             object_result = PaymentData.from_json(response)
             status = object_result.status
-
             match status: 
                 case "approved":
                     result, strErr = self.Instancepayment_processor.handle_approved(object_result.external_reference, payment_id)
