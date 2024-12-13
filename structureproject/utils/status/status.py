@@ -91,7 +91,5 @@ class OrdemStatusService:
                 case "rejected":
                     result, strErr= self.Instancepayment_processor.handle_rejected(object_result.external_reference, object_result)
                     return  result, strErr, status
-                case _:
-                    raise ValueError("Status do pagamento desconhecido")
         except Exception as e:
-            raise ValueError(f"Erro ao processar resposta: {e}")
+            return False,  f"Erro ao processar resposta: {e.args[1]}", status 
