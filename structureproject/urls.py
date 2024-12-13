@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, love_message_view, CreatePayment, mercado_pago_webhook, CreatePage, ViewProdutoStatus, search_produto, _PaymentAproved_ 
+from .views import index, love_message_view, CreatePayment, mercado_pago_webhook, CreatePage, ViewProdutoStatus, search_produto, _Status_ 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +24,9 @@ urlpatterns = [
     path('CreateMenssage', love_message_view, name='Checkin'),
     path('CreatePayment', CreatePayment, name='CreatePayment'),
     path('Pagina/<str:referencia>/<str:token>/', CreatePage, name='CreatePage'),
-    path ('Aproved', _PaymentAproved_, name='PaymentAproved' ),
+    path ('falilure', _Status_, name='Paymentfalilure' ),
+    path ('Pending', _Status_, name='PaymentPending' ),
+    path ('Aproved', _Status_, name='PaymentAproved' ),
     path('api/webhook/', mercado_pago_webhook, name='mercado_pago_webhook'),
     path('produto/visualizar/', ViewProdutoStatus, name='produtoVisualizar'),
     path('api/search_produto/', search_produto, name='search_produto'),

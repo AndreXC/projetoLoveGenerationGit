@@ -8,6 +8,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{% static 'js/modal.js' %}"></script>
+
 
 
 </head>
@@ -28,6 +30,24 @@
         </div>
 
 
+        
+        {% if CompraErro %}
+            <script>
+                openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
+            </script>
+        {% endif %}
+
+        {% if Compra and StatusCompra %}
+            <script>
+                openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
+            </script>
+        {% endif %}
+
+        {% if Compra_ and ExternalReference %}
+            <script>
+                openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
+            </script>
+        {% endif %}
 
         <header class="header">
             <h1>Bem-vindo ao LoveGeneration</h1>
@@ -207,7 +227,6 @@
     <script src="{% static 'js/flower.js' %}"></script>
     <script src="{% static 'js/checkBoxDate.js' %}"></script>
     <script src="{% static 'js/dropzone.js' %}"></script>
-    <script src="{% static 'js/modal.js' %}"></script>
     <script src="{% static 'js/MensagensLove.js' %}"></script>
     <script src="{% static 'js/priceLove.js' %}"></script>
     <script src="{% static 'js/circle.js' %}"></script>

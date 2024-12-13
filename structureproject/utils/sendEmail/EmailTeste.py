@@ -46,7 +46,7 @@ class EmailSender:
                     'message': "Obrigado por confiar em nosso produto! Estamos enviando este e-mail com todos os detalhes para você. Temos certeza de que sua amada ou amado vai adorar essa surpresa especial.",
                     'link': link,
                     'IdCompra': idCompra,
-                   
+                    'link_produtoView': 'http://127.0.0.1:8000/produto/visualizar/'
                 },
                 subject="Sua Página de Amor foi criada com sucesso!",
                 fileQrcode=fileQrcode  # Enviar o QR code como anexo

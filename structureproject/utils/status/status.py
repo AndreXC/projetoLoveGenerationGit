@@ -84,13 +84,13 @@ class OrdemStatusService:
             match status: 
                 case "approved":
                     result, strErr = self.Instancepayment_processor.handle_approved(object_result.external_reference, payment_id)
-                    return  result, strErr
+                    return  result, strErr, status
                 case "pending":
                     result, strErr = self.Instancepayment_processor.handle_pending(object_result.external_reference, object_result)
-                    return  result, strErr
+                    return  result, strErr, status
                 case "rejected":
                     result, strErr= self.Instancepayment_processor.handle_rejected(object_result.external_reference, object_result)
-                    return  result, strErr 
+                    return  result, strErr, status
                 case _:
                     raise ValueError("Status do pagamento desconhecido")
         except Exception as e:

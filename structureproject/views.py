@@ -29,7 +29,7 @@ def ViewProdutoStatus(request):
         
 
 
-def _PaymentAproved_(request):
+def _Status_(request):
     payment_data = {
         'collection_id': request.GET.get('collection_id'),
         'collection_status': request.GET.get('collection_status'),
@@ -52,7 +52,7 @@ def _PaymentAproved_(request):
             return JsonResponse({"status": "error", "message": "response vazio"}, status=400)
         
         instanciaOrdemStatusService:OrdemStatusService =  OrdemStatusService()
-        result, StrErr = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
+        result, StrErr, status = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
         if not result and StrErr != '':
             InstanceCompraCliente= PaymentData.from_json(response)
             instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
@@ -62,11 +62,11 @@ def _PaymentAproved_(request):
                 details='Erro: ' + str(StrErr)
             )
             instancepaymentNotProcess.save()
-            return JsonResponse({"status": "failed"}, status=400)
+            return render(request, 'index.html', {'CompraErro':True, 'id': payment_data['payment_id'], 'ExternalReference': payment_data['external_reference']})
+        if status != '':
+           return render(request, 'index.html', {'Compra':True, 'StatusCompra': status})
+        return render(request, 'index.html', {'Compra_':True, 'ExternalReference': payment_data['external_reference']})
 
-        # Confirma que o webhook foi processado
-        return JsonResponse({"status": "success"}, status=200)
-    
     
 
 
