@@ -13,9 +13,9 @@
     <div class="hearts"></div>
 
     <!-- Botão de Música -->
-    <!-- <div class="music-icon paused" id="musicIcon">''
-        <img src="musical-note.png" alt="">
-    </div> -->
+    <div class="music-icon paused" id="musicIcon">
+        <img src="{% static 'img/Music/nota-musical.png' %}" alt="">
+    </div>
 
     <div class="container">
         <div class="bouquet">
@@ -51,13 +51,17 @@
                         <p>Já estamos juntos há:</p>
                         <p class="time" id="time-display"></p>
                     </div>
-
                     <script>
-                        document.getElementById('containerNamoro').style.visibility = 'visible !important';
-                        const DateVar = '{{ JsonMensagem.data }}';
-                        const hourvar = '{{ JsonMensagem.hour }}';
-                        calculateTimeDifference(DateVar, hourvar);
+                    document.addEventListener('DOMContentLoaded', function() {
+                            document.getElementById('containerNamoro').style.display = 'block';
+                            const DateVar = '{{ JsonMensagem.data }}';
+                            const hourvar = '{{ JsonMensagem.hour }}';
+                            calculateTimeDifference(DateVar, hourvar);
+                        });
+
                     </script>
+
+                    
                 {% endif %}
 
             </div>
@@ -92,7 +96,14 @@
 <script src="{% static 'js/HearthScript.js' %}"></script>
 <script src="{% static 'js/animationFlower.js' %}"></script>
 <script src="{% static 'js/ModalPageLove.js' %}"></script>
-<!-- <script src="{% static 'js/music.js' %}"></script> -->
+<script src="{% static 'js/music.js' %}"></script>
+<script>
+    setupMusic([
+      "{% static 'music/music1.mp3' %}",
+      "{% static 'music/music2.mp3' %}",
+      "{% static 'music/music3.mp3' %}"
+    ]);
+</script>
 <script src="{% static 'js/TimeLove.js' %}"></script>
 <script src="{% static 'js/carrosseulImage.js' %}"></script>
 

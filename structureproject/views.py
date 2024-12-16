@@ -12,7 +12,7 @@ import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
-from .utils.Status.status import  OrdemStatusService
+from .utils.status.status import OrdemStatusService
 
 
 
@@ -26,8 +26,6 @@ def index(request):
 def ViewProdutoStatus(request):
     return render(request, 'viewproduto.html')
     
-        
-
 
 def _Status_(request):
     payment_data = {
@@ -96,9 +94,9 @@ def CreatePayment(request):
         
         objectResultProduto= TJSONGetProduto.from_dict(response)
         Compra.objects.create(
-        token_referencia= objectResultProduto.external_reference,  
-        status_compra="Pendente",    
-        dados_requisicao= f"{request.session['Mensagem']}"
+            token_referencia= objectResultProduto.external_reference,  
+            status_compra="Pendente",    
+            dados_requisicao= f"{request.session['Mensagem']}"
         )
     
         return redirect(objectResultProduto.init_point)
@@ -137,8 +135,6 @@ def love_message_view(request):
             )
             instanceError.save()
             return JsonResponse({'status': 'error', 'message': 'Estamos Com um erro interno, por favor, tente novamente Depois!'})
-            
-
             
                 
         # imagesList:list[str]= save_arq(images, link_save_arq_temp)

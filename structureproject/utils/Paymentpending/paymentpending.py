@@ -1,7 +1,6 @@
 from  ModelSite.models import Error
 from ..sendEmail.EmailTeste import EmailSender
-import json
-from ...dto.JsonGetProdutoFinal import TJSONGetProdutoFinal
+
 
 class PaymentPending:
     def __init__(self, Email:str, qrcode:str, name:str, tokenReference: str):
@@ -10,10 +9,10 @@ class PaymentPending:
             self.name:str = name
             self.tokenReference:str = tokenReference
 
-    def __SendEmail__(self):
+    def __SendEmailPending__(self):
         try:
             instanceSendEmail: EmailSender = EmailSender()
-            instanceSendEmail.__send_email(
+            instanceSendEmail.SendEmail(
                 to_email=self.email,
                 template_name='pending.html',
                 context={
@@ -22,6 +21,7 @@ class PaymentPending:
                      'tokenReference': self.tokenReference
                 },
                 subject="Lembrete, seu pagamento ainda não foi aprovado!",
+                fileQrcode=False
             )
              
             return True, ''

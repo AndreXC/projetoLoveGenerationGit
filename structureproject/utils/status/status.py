@@ -43,12 +43,12 @@ class PaymentProcessor:
 
             json_message = json.loads(compra.dados_requisicao.replace("'", "\""))
             payment_pending_instance = PaymentPending(
-                email=json_message['email'],
+                Email=json_message['email'],
                 qrcode=payment_data.qr_code,
                 name=payment_data.name,
-                external_reference=compra.token_referencia,
+                tokenReference=compra.token_referencia,
             )
-            result, StrErr = payment_pending_instance.__SendEmail__()
+            result, StrErr = payment_pending_instance.__SendEmailPending__()
             return result, StrErr
         except Exception as e:
             return False, f"Erro ao processar pagamento pendente: {e}"

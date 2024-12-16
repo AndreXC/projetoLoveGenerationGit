@@ -71,3 +71,11 @@ class PageNotCarregadaErro(models.Model):
 
     def __str__(self):
         return f"{self.error_type}: {self.details[:50]}"
+
+
+
+class Qrcode(models.Model):
+    token_referencia = models.CharField(max_length=255, unique=True, null=False, blank=False)
+    qrcode =  models.BinaryField(null=False, blank=True)
+
+    

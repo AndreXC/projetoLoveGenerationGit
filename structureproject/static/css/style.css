@@ -93,7 +93,7 @@ label {
 
 /* Ajuste do tamanho do carrossel */
 #carouselExampleIndicators {
-    width: 50%;
+    width: 100%;
     /* Ajusta a largura do carrossel */
     margin: 0 auto;
     /* Centraliza o carrossel */
@@ -103,9 +103,8 @@ label {
 .carousel-item img {
     width: 100%;
     /* Largura da imagem para preencher o carrossel */
-    height: 500px;
+    height: 600px;
     /* Altura da imagem do carrossel */
-    object-fit: cover;
     /* Faz com que a imagem cubra a área do carrossel */
 }
 

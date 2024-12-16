@@ -1,11 +1,14 @@
 from ...dto.JsonGetProdutoFinal import TJSONGetProdutoFinal
-from ModelSite.models import Compra
+from ModelSite.models import Compra, Qrcode
 from ..Qrcode.createQrcode import QRCodeGenerator
 from  ...comuns.comuns import HostPagina 
 import secrets
 from ..sendEmail.Email import Sendemail
 from ..sendEmail.EmailTeste import EmailSender
 import json
+from django.db import close_old_connections
+
+
 
 
 
@@ -16,15 +19,21 @@ class createEstruturaProject:
 
         # Atribui um novo token a self.TokenLove se estiver vazio
         self.InstanceCompra.TokenLove = secrets.token_hex(64) if self.InstanceCompra.TokenLove == '' else self.InstanceCompra.TokenLove
-        self.InstanceCompra.save()          
+        self.InstanceCompra.save()   
+
+        self.link = f'{HostPagina}/Pagina/{self.reference}/{self.InstanceCompra.TokenLove}'       
     
     def __createQrcode__(self, StrErr: str) -> bool:
         try:
             StrErr = ''
             instanceQrcodeCreate: QRCodeGenerator = QRCodeGenerator()
-            result, StrErr = instanceQrcodeCreate.generate_qr_code(ExternalReference=self.reference, data=self.link)
+            result, StrErr, qrcodeReturn = instanceQrcodeCreate.generate_qr_code(data=self.link)
             if not result and StrErr != '':
                 return False, StrErr
+            close_old_connections()
+            self.InstanceCompra.qrcode = qrcodeReturn
+            self.InstanceCompra.save()
+
             return True, StrErr
         except Exception as e:
             StrErr = 'erro:->[__createQrcode__] ' + StrErr + e.args[0]
@@ -50,7 +59,7 @@ class createEstruturaProject:
             # instenceSendEmail.send_email()
 
 
-            linkPagina: str = f'{HostPagina}/Pagina/{self.reference}/{self.InstanceCompra.TokenLove}'
+            linkPagina: str = self.link
             instanceEmail = EmailSender()
             instanceEmail.send_emails(
                 link=linkPagina,

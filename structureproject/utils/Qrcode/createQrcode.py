@@ -1,7 +1,7 @@
 import qrcode
 from PIL import Image
 import secrets
-from ModelSite.models import  Compra, Error
+from ModelSite.models import Error
 from io import BytesIO
 
 QrcodePath = r'structureproject\static\Img\qrcode\QrcodeModelo.png'
@@ -11,10 +11,9 @@ class QRCodeGenerator:
         self.scale_factor = 0.6
         self.angle = 45
         self.OutputQrcode:str = secrets.token_hex(20)
-        self.instanceCompra: Compra = Compra
 
     
-    def generate_qr_code(self, ExternalReference: str, data: str, frame_path: str = None) -> tuple[bool, str]:
+    def generate_qr_code(self, data: str) -> tuple[bool, str]:
         try:
             # Gerar o QR Code diretamente como imagem
             qr_img = qrcode.make(data).convert('RGBA')
@@ -33,7 +32,7 @@ class QRCodeGenerator:
             qr_img_with_transparency.paste(qr_img, (0, 0), qr_img)
 
             # Abrir a imagem da moldura e colar o QR Code
-            with Image.open(frame_path) as frame_img:
+            with Image.open(QrcodePath) as frame_img:
                 # Calcular a posição para centralizar o QR Code
                 position = (
                     (frame_img.width - qr_img_with_transparency.width) // 2 + 3,
@@ -44,16 +43,12 @@ class QRCodeGenerator:
                 # Salvar a imagem com o QR Code no local de saída com extensão .png
                 frame_img.save(buffer, format='PNG')  # Você pode usar outro formato, como JPG
                 buffer.seek(0)
-                
-                self.instanceCompra.objects.get(token_referencia=ExternalReference)
-                self.instanceCompra.qrcode =buffer.read()
-                self.instanceCompra.save()
 
-            return True , ''
+                return True , '', buffer.read()
 
         except Exception as e:
             Error.objects.create(
             error_type=type(e).__name__,
             details='[QRCodeGenerator]'+ e.args[0])
-            return False, f'[QRCodeGenerator]-> erro {e.args[0]}'
+            return False, f'[QRCodeGenerator]-> erro {e.args[1]}'
 
