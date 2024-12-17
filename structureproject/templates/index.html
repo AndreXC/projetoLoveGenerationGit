@@ -28,6 +28,12 @@
         </div>
 
 
+        {% if CreatePaymentError %}
+            <script>
+                openLoveModal("Não foi possivel processar seu pedido, Tente novamente mais tarde!", "Erro");
+            </script>    
+        {% endif %}
+
 
         {% if CompraErro %}
         <script>
@@ -46,6 +52,8 @@
             openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
         </script>
         {% endif %}
+
+
 
         <header class="header">
             <h1>Bem-vindo ao LoveGeneration</h1>
@@ -228,7 +236,8 @@
                     <label>
                         <input type="radio" name="service" style="width: 2% !important; position: relative; top:1px"
                             value="8" checked>
-                        <p class="ServiceParagrafo">Página personalizada para surpreender seu amor + Musica romantica</p>
+                        <p class="ServiceParagrafo">Página personalizada para surpreender seu amor + Musica romantica
+                        </p>
                     </label>
                     <label>
                         <input type="radio" name="service" style="width: 2% !important; position: relative; top:1px"
