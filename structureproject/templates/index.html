@@ -21,7 +21,7 @@
 
         <!-- Modal -->
         <div id="loveModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: black !important;">
                 <span class="close-btn">&times;</span>
                 <h2 class="modal-title">Atenção</h2>
                 <p class="modal-message">Esta é uma mensagem de erro ou aviso.</p>
@@ -30,23 +30,23 @@
         </div>
 
 
-        
+
         {% if CompraErro %}
-            <script>
-                openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
-            </script>
+        <script>
+            openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
+        </script>
         {% endif %}
 
         {% if Compra and StatusCompra %}
-            <script>
-                openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
-            </script>
+        <script>
+            openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
+        </script>
         {% endif %}
 
         {% if Compra_ and ExternalReference %}
-            <script>
-                openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
-            </script>
+        <script>
+            openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
+        </script>
         {% endif %}
 
         <header class="header">
@@ -74,9 +74,12 @@
                     receber todos os detalhes da sua compra.</li>
                 <li><strong>Sua mensagem de amor:</strong> 💌 Um espaço para o usuário escrever uma mensagem romântica
                     ou especial, que será apresentada na página.</li>
-                <li><strong>Botão "Gere sua Mensagem aqui!":</strong> ✨ Este botão permite ao usuário gerar uma mensagem
+                <li>
+                    <strong>Botão "Gere sua Mensagem aqui!":</strong> ✨ Este botão permite ao usuário gerar uma mensagem
                     personalizada por IA caso ele/a queira um modelo de mensagem pronto, tornando a experiência mais
-                    interativa.</li>
+                    interativa. Você pode clicar várias vezes no botão para gerar diferentes mensagens, tornando a
+                    experiência ainda mais dinâmica e personalizada.
+                </li>
                 <li><strong>Seleção de flores:</strong> 🌸 O usuário pode escolher entre diferentes imagens de flores,
                     que adicionam um toque visual e simbólico à sua mensagem.</li>
                 <li><strong>Carregamento de fotos:</strong> 📸 Uma área para que o usuário faça upload de imagens
@@ -88,16 +91,36 @@
                 <li><strong>Escolha de serviços:</strong> 🎁 O usuário pode selecionar entre diferentes pacotes de
                     serviços que incluem uma página personalizada e QR Code. Isso permite uma escolha flexível e
                     adaptada às suas necessidades.</li>
+                <li>
+                    <strong>Pagamento:</strong> 💰 Utilizamos pagamentos apenas via <strong>PIX</strong>. Após a
+                    confirmação da compra, nosso sistema enviará um e-mail com o resumo da sua compra e o link da sua
+                    nova página de amor.
+                    Caso preferir, você também poderá visualizar o resumo da compra clicando no botão "Voltar" na tela
+                    de confirmação do pagamento.
+                </li>
+                <li>
+                    <strong>Já fez a compra?</strong> Ótimo! 🎉 Clique no botão abaixo para ser direcionado à nossa
+                    página e verificar o status do seu pedido. Basta ter em mãos o <strong>Token de Referência</strong>,
+                    que foi enviado para o seu e-mail de compra após a confirmação do pagamento.
+                    <br><br>
+                    <button class="button_li_love" onclick="window.location.href='link-da-sua-pagina';">Verificar Status
+                        do Pedido ✅</button>
+                </li>
             </ul>
 
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
                 <ol class="carousel-indicators">
-                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; padding: 8px !important;" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; padding: 8px !important;" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; padding: 8px !important;" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; padding: 8px !important;" data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; padding: 8px !important;" data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important;"
+                        data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li style=" border: none !important; height: 0px !important; width: 13px !important;"
+                        data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; "
+                        data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important; "
+                        data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li style=" border: none !important; height: 0px !important  ;width: 13px !important;"
+                        data-target="#carouselExampleIndicators" data-slide-to="4"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -150,7 +173,7 @@
                     <label for="mensagem" class="textarea-label">Sua mensagem de amor:</label>
                 </div>
 
-                <button id="generateMessageBtn" type="button" class="animated-button">Gere sua Mensagem aqui!</button>
+                <button id="generateMessageBtn" type="button" class="button_li_love">Gere sua Mensagem aqui! ✉️</button>
 
                 <div class="flower-selection">
                     <h3>Selecione uma flor:</h3>
@@ -211,7 +234,7 @@
                     </label>
                 </div>
 
-                <button id="submitBtn" type="submit">Prosseguir ❤️</button>
+                <button id="submitBtn" type="submit">Finalizar Compra ❤️</button>
                 <div id="loadingCircle" class="loading" style="display: none;"></div>
 
             </form>

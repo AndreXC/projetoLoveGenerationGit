@@ -102,10 +102,7 @@ label {
 /* Ajusta a altura das imagens */
 .carousel-item img {
     width: 100%;
-    /* Largura da imagem para preencher o carrossel */
-    height: 600px;
-    /* Altura da imagem do carrossel */
-    /* Faz com que a imagem cubra a área do carrossel */
+    height: auto !important;
 }
 
 
@@ -236,43 +233,76 @@ textarea::-webkit-scrollbar-thumb:hover {
 
 /* Botão estilizado */
 #submitBtn {
+    /* Estilando o botão com classe específica para responsividade e sofisticação */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /* Cores modernas */
+    border: none;
+    border-radius: 25px;
+    /* Bordas arredondadas */
     color: #fff;
+    /* Texto branco */
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Transição suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra sutil */
+}
+
+/* Efeito no hover */
+#submitBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    #submitBtn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #submitBtn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+
+/* color: #fff;
     background-color: #222;
     padding: 20px 25px;
     border: 1px solid red;
     border-radius: 10px;
-    /* Bordas mais arredondadas para um visual elegante */
     cursor: pointer;
     font-size: 1.2rem;
     font-weight: bold;
-    /* Negrito para dar destaque */
     letter-spacing: 0.05rem;
-    /* Espaçamento entre letras para sofisticação */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    /* Sombra suave para profundidade */
     transition: all 0.3s ease;
-    /* Transição suave para interações */
     outline: none;
-    /* Remove a borda de foco padrão */
 }
 
 #submitBtn:hover {
     background-color: #c0392b;
     /* Tom mais escuro ao passar o mouse */
-    transform: translateY(-3px);
+/* transform: translateY(-3px);
     /* Eleva o botão levemente */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+/* box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
     /* Aumenta a sombra para destaque */
-}
 
-#submitBtn:active {
+/* #submitBtn:active {
     background-color: #a93226;
     /* Tom ainda mais escuro ao clicar */
-    transform: translateY(0);
+/* transform: translateY(0);
     /* Remove a elevação ao clicar */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    /* Volta a sombra ao estado normal */
-}
+/* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */
+/* Volta a sombra ao estado normal */
+/* }*/
 
 /* Círculo de carregamento */
 .loading {
@@ -527,6 +557,15 @@ textarea::-webkit-scrollbar-thumb:hover {
 
     }
 
+    .inputhora-wrapper {
+        top: 23px !important;
+
+    }
+
+    .carousel-indicators li{
+        padding: 3px !important;
+
+    }
 }
 
 
@@ -593,6 +632,20 @@ textarea::-webkit-scrollbar-thumb:hover {
         top: -10px;
     }
 
+    .inputhora-wrapper {
+        top: 23px !important;
+
+    }
+
+
+    .carousel-indicators li {
+        padding: 3px !important;
+
+    }
+
+    .carousel-indicators li {
+        padding: 3px !important;
+    }
 
 }
 
@@ -987,5 +1040,46 @@ textarea::-webkit-scrollbar-thumb:hover {
     .inputdate-field,
     .inputhora-field {
         font-size: 1rem;
+    }
+}
+
+
+/* Estilando o botão com classe específica para responsividade e sofisticação */
+.button_li_love {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /* Cores modernas */
+    border: none;
+    border-radius: 25px;
+    /* Bordas arredondadas */
+    color: #fff;
+    /* Texto branco */
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Transição suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra sutil */
+}
+
+/* Efeito no hover */
+.button_li_love:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .button_li_love {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button_li_love {
+        font-size: 12px;
+        padding: 6px 12px;
     }
 }
