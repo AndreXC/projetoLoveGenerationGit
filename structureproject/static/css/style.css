@@ -526,7 +526,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 
     #mensagem {
         height: 180px !important;
-        width: 205px !important;
+        width: 100% !important;
     }
 
     .modal-content {
@@ -599,7 +599,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 
     #mensagem {
         height: 180px !important;
-        width: 205px !important;
+        width: 100% !important;
     }
 
     .header p {
@@ -898,7 +898,6 @@ textarea::-webkit-scrollbar-thumb:hover {
     color: #ffffff;
     font-size: 1.2em;
     font-family: 'Poppins', sans-serif;
-    background-color: #333;
     width: 166px;
     border: 1px solid #fd1a1a;
     border-radius: 10px;

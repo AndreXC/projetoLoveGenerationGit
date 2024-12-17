@@ -30,6 +30,7 @@ class Compra(models.Model):
     clienteId = models.CharField(max_length=50, null=True, default='')
     TokenLove = models.CharField(max_length=150, default='')
     qrcode =  models.BinaryField(null=True, blank=True, default= None)
+    SendEmailCliente =  models.BooleanField(default = False)
 
 
     def __str__(self):
