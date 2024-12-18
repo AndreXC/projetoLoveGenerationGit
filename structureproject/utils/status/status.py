@@ -3,6 +3,7 @@ from ModelSite.models import Compra
 from ...utils.posPayment.posPagamento import createEstruturaProject
 import json
 from ...utils.Paymentpending.paymentpending import PaymentPending
+from ...utils.PaymentRejected.paymentRejected  import PaymentRejected
 from ...dto.JsonGetProdutoStatusCompra import PaymentData
 from ...comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 
@@ -62,6 +63,12 @@ class PaymentProcessor:
             json_message = json.loads(compra.dados_requisicao.replace("'", "\""))
             save_blob_instance = SaveArquivosBlob()
             result, StrErr = save_blob_instance.__delete__(json_message['idfotosSalvas'])
+            payment_Rejected_instance = PaymentRejected(
+                Email=json_message['email'],
+                tokenReference=compra.token_referencia,
+            )
+            result, StrErr = payment_Rejected_instance.__SendEmailRejected__()        
+            
             return result, StrErr 
         except Exception as e:
             return False, f"Erro ao processar pagamento rejeitado: {e}"

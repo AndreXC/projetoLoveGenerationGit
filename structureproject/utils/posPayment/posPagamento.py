@@ -44,29 +44,33 @@ class createEstruturaProject:
             result: bool
             JsonMensagem:dict = json.loads(self.InstanceCompra.dados_requisicao.replace("'", "\""))
             ObjectJsonMensagem: TJSONGetProdutoFinal =  TJSONGetProdutoFinal.from_dict(JsonMensagem)
-            if ObjectJsonMensagem.service_name == 'LoveGeneration Premium':
-              result, StrErr = self.__createQrcode__(StrErr)
-              if not result and StrErr != '':
-                  return False, StrErr
-    
-            # instenceSendEmail: Sendemail = Sendemail(
-            #     recipient_email= ObjectJsonMensagem.email,s
-            #     subject= "Sua Pagina de Amor foi criada com sucesso!",
-            #     message="Obrigado por confiar em nosso produto! Estamos enviando este e-mail com todos os detalhes para você. Temos certeza de que sua amada ou amado vai adorar essa surpresa especial.",
-            #     FileQrcode= self.InstanceCompra.qrcode if self.InstanceCompra.qrcode else None, 
-            #     link= self.InstanceCompra.linkLove
-            # ) 
-            # instenceSendEmail.send_email()
-
-
-            linkPagina: str = self.link
-            instanceEmail = EmailSender()
-            instanceEmail.send_emails(
-                link=linkPagina,
-                fileQrcode=self.InstanceCompra.qrcode if self.InstanceCompra.qrcode else None,
-                idCompra= self.InstanceCompra.token_referencia,
-            )
+            if not self.InstanceCompra.SendEmailCliente:
+                if ObjectJsonMensagem.service_name == 'LoveGeneration Premium':
+                    result, StrErr = self.__createQrcode__(StrErr)
+                    if not result and StrErr != '':
+                        return False, StrErr
+                
+                # instenceSendEmail: Sendemail = Sendemail(
+                #     recipient_email= ObjectJsonMensagem.email,s
+                #     subject= "Sua Pagina de Amor foi criada com sucesso!",
+                #     message="Obrigado por confiar em nosso produto! Estamos enviando este e-mail com todos os detalhes para você. Temos certeza de que sua amada ou amado vai adorar essa surpresa especial.",
+                #     FileQrcode= self.InstanceCompra.qrcode if self.InstanceCompra.qrcode else None, 
+                #     link= self.InstanceCompra.linkLove
+                # ) 
+                # instenceSendEmail.send_email()
+        
+                linkPagina: str = self.link
+                instanceEmail = EmailSender()
+                instanceEmail.send_emails(
+                    link=linkPagina,
+                    fileQrcode=self.InstanceCompra.qrcode if self.InstanceCompra.qrcode else None,
+                    idCompra= self.InstanceCompra.token_referencia,
+                )
+                self.InstanceCompra.SendEmailCliente =  True
+                self.InstanceCompra.save()
+                return True, StrErr                      
             return True, StrErr
+            
         
         except Exception as e:
             StrErr += '__createMensagem__ erro->' + e.args[0]
