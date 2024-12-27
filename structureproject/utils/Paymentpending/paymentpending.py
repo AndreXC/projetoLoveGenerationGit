@@ -1,6 +1,6 @@
 from  ModelSite.models import Error
 from ..sendEmail.EmailTeste import EmailSender
-
+from django.db import close_old_connections
 
 class PaymentPending:
     def __init__(self, Email:str, qrcode:str, name:str, tokenReference: str):
@@ -27,6 +27,7 @@ class PaymentPending:
             return True, ''
              
         except Exception as e:
+            close_old_connections()
             Error.objects.create(
                 error_type=type(e).__name__,
                 details='[PaymentPending-SendEmail]'+ e.args[0])

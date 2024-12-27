@@ -13,6 +13,7 @@ from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
 from .utils.Status.status import OrdemStatusService 
+from django.db import close_old_connections
 
 
 
@@ -46,6 +47,7 @@ def _Status_(request):
         CheckStatusInstance: PaymentCheck = PaymentCheck(payment_data['payment_id'])
         response: dict[str, Union[str, int, bool]] = CheckStatusInstance._check_Status_payment_()
         if not response:
+            close_old_connections()
             instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
                 token_referencia=payment_data['external_reference'],
                 status_compra=payment_data['status'],
@@ -59,6 +61,7 @@ def _Status_(request):
         result, StrErr, status = instanciaOrdemStatusService.process_response(payment_data['payment_id'], response)
         if not result and StrErr != '':
             InstanceCompraCliente= PaymentData.from_json(response)
+            close_old_connections()
             instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
                 token_referencia=InstanceCompraCliente.external_reference,
                 status_compra=InstanceCompraCliente.status,
@@ -87,21 +90,24 @@ def CreatePayment(request):
 
         PaymentInstance: PaymentLinkGenerator= PaymentLinkGenerator()
         response: dict[str, Union[str, int, bool]] = PaymentInstance.gerar_link_pagamento(PostServicesPayment)
-
         if not response:
             request.session['Mensagem'].clear()    
             return render(request, 'index.html', {'CreatePaymentError': True})
         
         objectResultProduto= TJSONGetProduto.from_dict(response)
-        Compra.objects.create(
-            token_referencia= objectResultProduto.external_reference,  
+        close_old_connections()
+        instanciaCompra:Compra = Compra(
+        token_referencia=objectResultProduto.external_reference,  
             status_compra="Pendente",    
-            dados_requisicao= f"{request.session['Mensagem']}"
+            dados_requisicao=f"{request.session['Mensagem']}"
         )
+        instanciaCompra.save()
+
     
         return redirect(objectResultProduto.init_point)
     
     except Exception as e:
+        close_old_connections()
         instanceError: Error = Error(
                 error_type=type(e).__name__,
                 details=e.args[0]
@@ -124,11 +130,13 @@ def love_message_view(request):
         data =  request.POST.get('date')
         hour = request.POST.get('hour')
         
+        
         #salvar os arquivos no Banco.
         instanceSaveArquivosBlob:SaveArquivosBlob = SaveArquivosBlob()
         result, StrErr, idClient = instanceSaveArquivosBlob.__insertArq__(images)
 
         if not result and StrErr != '':
+            close_old_connections()
             instanceError: Error = Error(
                 error_type= '__insertArq__',
                 details=StrErr
@@ -179,6 +187,7 @@ def mercado_pago_webhook(request):
             result, StrErr, status = instanciaOrdemStatusService.process_response(payment_id, response)
             if not result and StrErr != '':
                 InstanceCompraCliente= PaymentData.from_json(response)
+                close_old_connections()
                 instancepaymentNotProcess: paymentNotProcess = paymentNotProcess(
                     token_referencia=InstanceCompraCliente.external_reference,
                     status_compra=InstanceCompraCliente.status,
@@ -197,12 +206,14 @@ def mercado_pago_webhook(request):
 
 def CreatePage(request, referencia, token):
     try:
+        close_old_connections()
         InstanceCliente: Compra = Compra.objects.get(token_referencia=referencia, TokenLove= token)
         if InstanceCliente.status_compra == 'approved':
             JsonMensagem: json = json.loads(InstanceCliente.dados_requisicao.replace("'", "\""))            
             instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
             result, strErr, images = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
             if not result and strErr !='':
+                close_old_connections()
                 instancePageNotCarregadaErro: PageNotCarregadaErro = PageNotCarregadaErro
                 instancePageNotCarregadaErro.objects.create(
                     token_referencia = referencia, 
@@ -225,6 +236,7 @@ def CreatePage(request, referencia, token):
 def search_produto(request):
     order_id = request.GET.get('id')
     try:
+        close_old_connections()
         order = Compra.objects.get(token_referencia= order_id)
         
         qrcode_data = None

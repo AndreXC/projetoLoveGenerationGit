@@ -15,8 +15,8 @@ from django.db import close_old_connections
 class createEstruturaProject:
     def __init__(self, ExternalReference: str):
         self.reference: str = ExternalReference 
+        close_old_connections()
         self.InstanceCompra: Compra = Compra.objects.get(token_referencia=self.reference)
-
         # Atribui um novo token a self.TokenLove se estiver vazio
         self.InstanceCompra.TokenLove = secrets.token_hex(64) if self.InstanceCompra.TokenLove == '' else self.InstanceCompra.TokenLove
         self.InstanceCompra.save()   

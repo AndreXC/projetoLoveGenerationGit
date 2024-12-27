@@ -29,27 +29,35 @@
 
 
         {% if CreatePaymentError %}
-            <script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 openLoveModal("Não foi possivel processar seu pedido, Tente novamente mais tarde!", "Erro");
-            </script>    
+            });
+        </script>
         {% endif %}
 
 
         {% if CompraErro %}
         <script>
-            openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
+            document.addEventListener('DOMContentLoaded', function () {
+                openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
+            });
         </script>
         {% endif %}
 
         {% if Compra and StatusCompra %}
         <script>
-            openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
+            document.addEventListener('DOMContentLoaded', function () {
+                openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
+            });
         </script>
         {% endif %}
 
         {% if Compra_ and ExternalReference %}
         <script>
-            openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
+            document.addEventListener('DOMContentLoaded', function () {
+                openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
+            });
         </script>
         {% endif %}
 
@@ -258,8 +266,9 @@
         <footer class="footer">
             <p>
                 <strong>LoveSite</strong> - Onde o amor ganha forma e cor. Surpreenda quem você ama todos os dias!
-                <button onclick="openLoveModal('Termo de Compromisso de CompraAo prosseguir com a compra desta página, você, o comprador, declara estar ciente e concordar com os seguintes termos e condições:  Aceitação dos Termos: Ao finalizar o processo de compra, você confirma que leu, entendeu e aceita os termos descritos neste compromisso.  Cancelamento: Não aceitamos cancelamento após a confirmação do pagamento. Assim, ao prosseguir com a compra, você concorda em não solicitar o cancelamento ou reembolso do valor pago.  Entrega da Página: A entrega da página será realizada apenas após a confirmação do pagamento e sua aprovação pela plataforma de pagamento utilizada. O tempo de entrega pode variar de acordo com o processamento do pagamento.  Responsabilidade: Você assume total responsabilidade pelo fornecimento correto de suas informações durante o processo de compra. A página será entregue conforme descrito e acordado no momento da compra.  Alterações na Página: Qualquer solicitação de alterações ou ajustes poderá ser negociada separadamente e estará sujeita a taxas adicionais, conforme previamente acordado entre as partes.  Confirmação de Compra: Ao concluir o pagamento, você confirma que todos os dados fornecidos estão corretos, e que a compra foi realizada por sua própria vontade, sem pressões ou coação de qualquer natureza.  Direitos Autorais e Propriedade: Ao concluir a compra, você reconhece que todos os direitos autorais e propriedade intelectual da página e seu conteúdo pertencem ao vendedor até a conclusão da transação e transferência completa dos direitos acordados.  Limitação de Responsabilidade: O vendedor não será responsável por quaisquer danos, perdas ou problemas decorrentes de falhas de sistema, problemas no processamento do pagamento, ou qualquer outra questão alheia ao controle da plataforma.  Alterações no Termo: O vendedor se reserva o direito de alterar este Termo de Compromisso a qualquer momento, sendo que as alterações serão válidas apenas para as compras realizadas após a atualização.  Disposições Finais: Qualquer disputa relacionada a este termo será resolvida de acordo com a legislação vigente, no foro competente da localidade do vendedor.  Ao continuar com a compra, você declara estar ciente e de acordo com todas as condições acima descritas.', 'Termo de Compromisso')">Termos e Compromisso</button>
-
+                <button
+                    onclick="openLoveModal('Termo de Compromisso de CompraAo prosseguir com a compra desta página, você, o comprador, declara estar ciente e concordar com os seguintes termos e condições:  Aceitação dos Termos: Ao finalizar o processo de compra, você confirma que leu, entendeu e aceita os termos descritos neste compromisso.  Cancelamento: Não aceitamos cancelamento após a confirmação do pagamento. Assim, ao prosseguir com a compra, você concorda em não solicitar o cancelamento ou reembolso do valor pago.  Entrega da Página: A entrega da página será realizada apenas após a confirmação do pagamento e sua aprovação pela plataforma de pagamento utilizada. O tempo de entrega pode variar de acordo com o processamento do pagamento.  Responsabilidade: Você assume total responsabilidade pelo fornecimento correto de suas informações durante o processo de compra. A página será entregue conforme descrito e acordado no momento da compra.  Alterações na Página: Qualquer solicitação de alterações ou ajustes poderá ser negociada separadamente e estará sujeita a taxas adicionais, conforme previamente acordado entre as partes.  Confirmação de Compra: Ao concluir o pagamento, você confirma que todos os dados fornecidos estão corretos, e que a compra foi realizada por sua própria vontade, sem pressões ou coação de qualquer natureza.  Direitos Autorais e Propriedade: Ao concluir a compra, você reconhece que todos os direitos autorais e propriedade intelectual da página e seu conteúdo pertencem ao vendedor até a conclusão da transação e transferência completa dos direitos acordados.  Limitação de Responsabilidade: O vendedor não será responsável por quaisquer danos, perdas ou problemas decorrentes de falhas de sistema, problemas no processamento do pagamento, ou qualquer outra questão alheia ao controle da plataforma.  Alterações no Termo: O vendedor se reserva o direito de alterar este Termo de Compromisso a qualquer momento, sendo que as alterações serão válidas apenas para as compras realizadas após a atualização.  Disposições Finais: Qualquer disputa relacionada a este termo será resolvida de acordo com a legislação vigente, no foro competente da localidade do vendedor.  Ao continuar com a compra, você declara estar ciente e de acordo com todas as condições acima descritas.', 'Termo de Compromisso')">Termos
+                    e Compromisso</button>
             </p>
             <!-- Botão de Termos e Compromisso -->
         </footer>
@@ -278,8 +287,6 @@
     <script src="{% static 'js/priceLove.js' %}"></script>
     <script src="{% static 'js/circle.js' %}"></script>
     <script src="{% static 'js/OnSubmitForm.js' %}"></script>
-
-
 
 </body>
 

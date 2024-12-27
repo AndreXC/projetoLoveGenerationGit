@@ -1,6 +1,8 @@
 from ModelSite.models import Arquivo
 import secrets
 import base64
+from django.db import close_old_connections
+
 
 class SaveArquivosBlob:
     def __init__(self):
@@ -10,6 +12,7 @@ class SaveArquivosBlob:
 
     def __insertArq__(self, Images: list[str]):
         try:
+            close_old_connections()
             for image in Images:
                 if hasattr(image, 'read'):
                     binary_content = image.read()  # Se for um arquivo aberto

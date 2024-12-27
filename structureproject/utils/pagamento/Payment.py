@@ -32,6 +32,6 @@ class PaymentLinkGenerator:
                 "default_payment_type_id": "pix"
             },
             "external_reference": self.secrete,
-            "auto_return": "pending" # retornar compras aprovadas automaticamente.
+            "auto_return": "all" # retornar compras aprovadas automaticamente.
         }
 

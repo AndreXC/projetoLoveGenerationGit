@@ -6,12 +6,14 @@ from ...utils.Paymentpending.paymentpending import PaymentPending
 from ...utils.PaymentRejected.paymentRejected  import PaymentRejected
 from ...dto.JsonGetProdutoStatusCompra import PaymentData
 from ...comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
+from django.db import close_old_connections
 
 
 class CompraRepository:
     """Responsável por interações com a base de dados relacionadas às compras."""
     def get_compra(self, external_reference: str) -> Compra:
         try:
+            close_old_connections()            
             return Compra.objects.get(token_referencia=external_reference)
         except Compra.DoesNotExist:
             raise ValueError("Compra não encontrada para o token fornecido.")

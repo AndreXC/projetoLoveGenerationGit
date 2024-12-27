@@ -1,6 +1,6 @@
 from  ModelSite.models import Error
 from ..sendEmail.EmailTeste import EmailSender
-
+from django.db import close_old_connections
 
 
 
@@ -27,6 +27,7 @@ class PaymentRejected:
             return True, ''
              
         except Exception as e:
+            close_old_connections()
             Error.objects.create(
                 error_type=type(e).__name__,
                 details='[SendEmailRejected-SendEmail]'+ e.args[0])
