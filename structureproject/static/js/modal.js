@@ -16,20 +16,24 @@ function openLoveModal(message, title = "Atenção") {
 // Função para fechar o modal
 function closeLoveModal() {
     const modal = document.getElementById('loveModal');
-    modal.style.display = 'none';   
+    modal.style.display = 'none';
 }
 
-// Event listeners para fechar o modal
-document.querySelector('.modal-btn').addEventListener('click', closeLoveModal);
-document.querySelector('.close-btn').addEventListener('click', closeLoveModal);
 
-// Fecha o modal se o usuário clicar fora dele
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('loveModal');
-    if (event.target === modal) {
-        closeLoveModal();
-    }
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Event listeners para fechar o modal
+    document.querySelector('.modal-btn').addEventListener('click', closeLoveModal);
+    document.querySelector('.close-btn').addEventListener('click', closeLoveModal);
+
+    // Fecha o modal se o usuário clicar fora dele
+    window.addEventListener('click', function (event) {
+        const modal = document.getElementById('loveModal');
+        if (event.target === modal) {
+            closeLoveModal();
+        }
+    });
+
+    // Expondo a função openLoveModal para que possa ser usada globalmente
+    window.openLoveModal = openLoveModal;
 });
-
-// Expondo a função openLoveModal para que possa ser usada globalmente
-window.openLoveModal = openLoveModal;
