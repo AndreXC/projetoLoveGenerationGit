@@ -12,7 +12,7 @@ import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
-from .utils.Status.status import OrdemStatusService 
+from .utils.status.status import OrdemStatusService 
 from django.db import close_old_connections
 
 

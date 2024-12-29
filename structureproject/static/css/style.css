@@ -529,9 +529,9 @@ textarea::-webkit-scrollbar-thumb:hover {
         width: 100% !important;
     }
 
-    .modal-content {
+    /* .modal-content {
         margin: 30% auto !important;
-    }
+    } */
 
     .ServiceParagrafo {
         font-size: 11px !important;
@@ -589,9 +589,9 @@ textarea::-webkit-scrollbar-thumb:hover {
         /* Margem reduzida em telas pequenas */
     }
 
-    .modal-content {
+    /* .modal-content {
         margin: 22% auto !important;
-    }
+    } */
 
     .ServiceParagrafo {
         font-size: 11px !important;
@@ -743,7 +743,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 /* Conteúdo do modal */
 .modal-content {
     position: relative;
-    margin: 15% auto;
+    margin: 3% auto !important;
     padding: 20px;
     width: 80%;
     max-width: 500px;
@@ -773,6 +773,30 @@ textarea::-webkit-scrollbar-thumb:hover {
     color: #fff;
     /* Texto branco */
     margin-bottom: 20px;
+    height: 500px;
+    overflow: auto;
+
+    /* Estilo para barra de rolagem */
+    scrollbar-width: thin; /* Para navegadores compatíveis com scrollbar-width */
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Cor barra/pista */
+}
+
+.modal-message::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+    background-color: transparent; /* Fundo transparente */
+}
+
+.modal-message::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5); /* Cor do polegar */
+    border-radius: 10px; /* Deixa a barra arredondada */
+}
+
+.modal-message::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Cor ao passar o mouse */
+}
+
+.modal-message:hover::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.1); /* Exibe a pista ao passar o mouse */
 }
 
 /* Botão de fechar o modal */
@@ -1082,3 +1106,12 @@ textarea::-webkit-scrollbar-thumb:hover {
         padding: 6px 12px;
     }
 }
+
+
+
+@media (max-width: 375px) and (max-height: 667px) {
+    .modal-message {
+        height: 430px !important;
+
+    }
+  }
