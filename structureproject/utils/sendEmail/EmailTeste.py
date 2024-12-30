@@ -5,6 +5,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from django.conf import settings
 from django.template.loader import render_to_string
+from ...comuns.comuns import HostPagina
 
 class EmailSender:
     def __init__(self):
@@ -39,16 +40,16 @@ class EmailSender:
         finally:
             self.close()
 
-    def send_emails(self, link, fileQrcode, idCompra):
+    def send_emails(self, email, link, fileQrcode, idCompra):
             # Enviar e-mail para cliente
             self.SendEmail(
-                to_email='andrecr7r102014@gmail.com',
+                to_email= email,
                 template_name='LoveGenerationEmail.html',
                 context={
                     'message': "Obrigado por confiar em nosso produto! Estamos enviando este e-mail com todos os detalhes para você. Temos certeza de que sua amada ou amado vai adorar essa surpresa especial.",
                     'link': link,
                     'IdCompra': idCompra,
-                    'link_produtoView': 'http://127.0.0.1:8000/produto/visualizar/'
+                    'link_produtoView': HostPagina +'/produto/visualizar/'
                 },
                 subject="Sua Página de Amor foi criada com sucesso!",
                 fileQrcode=fileQrcode  # Enviar o QR code como anexo

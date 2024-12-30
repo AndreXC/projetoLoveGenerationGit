@@ -85,7 +85,7 @@ def CreatePayment(request):
             request.session['Mensagem']['serviceName'],
             quantidadePadrao,
             moeda,
-            1.0
+            request.session['Mensagem']['service'] 
         ).to_dict()
 
         PaymentInstance: PaymentLinkGenerator= PaymentLinkGenerator()
@@ -242,9 +242,11 @@ def search_produto(request):
         qrcode_data = None
         if order.qrcode:
             qrcode_data = base64.b64encode(order.qrcode).decode('utf-8')
-    
+
+        link:str = HostPagina + f'/Pagina/{order.token_referencia}/{order.TokenLove}'
         data = {
             'order': {
+                'link':link, 
                 'status': order.status_compra,
                 'clienteId': order.clienteId,
                 'gerado': order.created_at,
@@ -255,5 +257,11 @@ def search_produto(request):
     except Compra.DoesNotExist:
         return JsonResponse({'order': None}, status=404)
 
+
+
+
+# View para lidar com a página 404 personalizada
+def custom_page_not_found(request, exception):
+    return render(request, 'PageNotFound.html', status=404)
 
 

@@ -25,13 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*m5pc1ln#-5zy7z3w_=hywoye7kv5j+-cq@*sc^scmt2ovw)t4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://landing.agilsistemas.inf.br',
+# ]
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
