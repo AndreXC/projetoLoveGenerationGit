@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/LovePage.css' %}">
-    <link rel="icon" href="{% static 'img/logo/LoveLogo.png' %}" type="image/png">
+    <link rel="icon" href="../../static/Img/logo/LoveLogo.png" type="image/png">
     <title>Sua Pagina Amor!</title>
 </head>
 
@@ -15,19 +15,19 @@
 
     <!-- Botão de Música -->
     <div class="music-icon paused" id="musicIcon">
-        <img src="{% static 'img/Music/nota-musical.png' %}" alt="">
+        <img src="../../static/Img/Music/nota-musical.png" alt="">
     </div>
 
     <div class="container">
         <div class="bouquet">
             {% if JsonMensagem.flor == 'flower1' %}
-            <img src="{% static 'img/flores/flor.png' %}" alt="Buquê de Rosas">
+            <img src="../../static/Img/flores/flor.png" alt="Buquê de Rosas">
             {% endif %}
             {% if JsonMensagem.flor == 'flower2' %}
-            <img src="{% static 'img/flores/flor2.png' %}" alt="Buquê de Rosas">
+            <img src="../../static/Img/flores/flor2.png" alt="Buquê de Rosas">
             {% endif %}
             {% if JsonMensagem.flor == 'flower3' %}
-            <img src="{% static 'img/flores/flor3.png' %}" alt="Buquê de Rosas">
+            <img src="../../static/img/flores/flor3.png" alt="Buquê de Rosas">
             {% endif %}
         </div>
 
