@@ -17,7 +17,7 @@ moeda: str = "BRL"
 idpadrao: str = "1"
 quantidadePadrao: int = 1
 
-HostPagina= 'http://127.0.0.1:8000'
+HostPagina= 'https://lovegeneration.pythonanywhere.com'
 
 
 def getMensagens(tamListFotos: int):
