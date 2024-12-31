@@ -1,9 +1,9 @@
 from typing import Tuple, Any
 from ModelSite.models import Compra
-from ...utils.posPayment.posPagamento import createEstruturaProject
+from ..posPayment.posPagamento import createEstruturaProject
 import json
-from ...utils.Paymentpending.paymentpending import PaymentPending
-from ...utils.PaymentRejected.paymentRejected  import PaymentRejected
+from ..Paymentpending.paymentpending import PaymentPending
+from ..PaymentRejected.paymentRejected  import PaymentRejected
 from ...dto.JsonGetProdutoStatusCompra import PaymentData
 from ...comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 from django.db import close_old_connections
