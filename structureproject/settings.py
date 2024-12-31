@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-*m5pc1ln#-5zy7z3w_=hywoye7kv5j+-cq@*sc^scmt2ovw)t4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://lovegeneration.pythonanywhere.com',]
+ALLOWED_HOSTS = ['lovegeneration.pythonanywhere.com',]
 
 # CSRF_TRUSTED_ORIGINS = [
 #     'https://landing.agilsistemas.inf.br',
