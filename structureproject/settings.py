@@ -85,6 +85,9 @@ DATABASES = {
         'PASSWORD': config('PASSWORDBANCO'),
         'HOST': config('HOSTBANCO'),  # Ou o IP do servidor
         'PORT': config('PORTBANCO'),  # Porta padrão do MySQL
+        'OPTIONS': {
+            'connect_timeout': 60,  # Aumenta o tempo de conexão para 60 segundos
+        },
     }
 }
 
