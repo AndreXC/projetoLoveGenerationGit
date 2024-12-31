@@ -12,7 +12,12 @@ import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
 import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
-from .utils.Status.status import OrdemStatusService 
+import sys
+import os
+# Adicionando o caminho do diretório 'structureproject' para garantir que o Python o reconheça
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+# Agora, fazemos a importação relativa
+from .utils.Status.status import OrdemStatusService  # Importação corrigida
 from django.db import close_old_connections
 
 
