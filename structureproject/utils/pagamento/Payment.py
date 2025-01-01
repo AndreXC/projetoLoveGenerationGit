@@ -1,15 +1,16 @@
 import mercadopago
 import secrets
 from decouple import config
+from ...comuns.comuns import HostPagina
 
 class PaymentLinkGenerator:
     def __init__(self):
         # Inicializa o SDK do MercadoPago com a chave de autenticação
         self.sdk = mercadopago.SDK(config('ChaveSdkMercadoPagoProd'))
         self.secrete:str = secrets.token_hex(10) 
-        self.Success:str = "http://127.0.0.1:8000/Aproved"
-        self.failure:str = "http://127.0.0.1:8000/falilure"
-        self.pending:str = "http://127.0.0.1:8000/Pending"    
+        self.Success:str = f"{HostPagina}/Aproved"
+        self.failure:str = f"{HostPagina}/falilure"
+        self.pending:str = f"{HostPagina}/Pending"    
 
     def gerar_link_pagamento(self, items: dict[str, float, int]) -> dict[str, float, int]:
         payment_data = self._criar_dados_pagamento(items)

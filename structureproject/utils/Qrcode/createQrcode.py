@@ -4,7 +4,7 @@ import secrets
 from ModelSite.models import Error
 from io import BytesIO
 
-QrcodePath = r'structureproject\static\Img\qrcode\QrcodeModelo.png'
+QrcodePath = r'static\Img\qrcode\QrcodeModelo.png'
  
 class QRCodeGenerator:
     def __init__(self):
