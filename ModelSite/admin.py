@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Compra, Arquivo, paymentNotProcess, Error, PageNotCarregadaErro
+from .models import Compra, Arquivo, paymentNotProcess, Error, PageNotCarregadaErro, florArq, iconLogoPage 
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
@@ -33,3 +33,14 @@ class Error(admin.ModelAdmin):
 @admin.register(PageNotCarregadaErro)
 class pageNotCarregadaError(admin.ModelAdmin):
     list_display = ('token_referencia', 'error_type', 'occurred_at')
+    
+    
+@admin.register(florArq)
+class florArqAdmin(admin.ModelAdmin):
+    list_display = ('idflor', 'flor')  
+
+@admin.register(iconLogoPage)
+class iconLogoPageAdmin(admin.ModelAdmin):
+    list_display = ('idLogoicon', 'icon', 'logo') 
+
+

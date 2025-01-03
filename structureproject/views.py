@@ -6,22 +6,23 @@ from .dto.jsontoobjectGetproduto import TJSONGetProduto
 from .utils.pagamento.Payment import PaymentLinkGenerator
 from .utils.checandoPagamento.checkPayment import PaymentCheck
 from typing import Union
-from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro
+from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro, iconLogoPage
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
+from .comuns.PageFlorIcon.pageFIc import extractFlorArq, extractIconLogo  
 import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
 from .utils.Status_compra.statusCompra import OrdemStatusService 
 from django.db import close_old_connections
-
+from django.http import HttpResponse
 
 
 
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'image.html')
 
 
 def ViewProdutoStatus(request):
@@ -210,6 +211,10 @@ def CreatePage(request, referencia, token):
         InstanceCliente: Compra = Compra.objects.get(token_referencia=referencia, TokenLove= token)
         if InstanceCliente.status_compra == 'approved':
             JsonMensagem: json = json.loads(InstanceCliente.dados_requisicao.replace("'", "\""))            
+            
+            instanciaExtractFlor: extractFlorArq =  extractFlorArq()
+            result, strErr, flor = instanciaExtractFlor.__extractArqAll__(id= JsonMensagem['flor']) 
+            
             instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
             result, strErr, images = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
             if not result and strErr !='':
@@ -264,4 +269,19 @@ def search_produto(request):
 def custom_page_not_found(request, exception):
     return render(request, 'PageNotFound.html', status=404)
 
+ 
+def upload_logo_icon(request):
+    if request.method == 'POST' and request.FILES['icon'] and request.FILES['logo']:
+        icon_file = request.FILES['icon']
+        logo_file = request.FILES['logo']
 
+        # Converta os arquivos em formato binário
+        icon_data = icon_file.read()
+        logo_data = logo_file.read()
+
+        # Salvar no banco de dados
+        new_record = iconLogoPage(icon=icon_data, logo=logo_data)
+        new_record.save()
+
+        return HttpResponse("Arquivos carregados com sucesso!")
+    return render(request, 'upload.html')

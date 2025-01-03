@@ -78,5 +78,20 @@ class PageNotCarregadaErro(models.Model):
 class Qrcode(models.Model):
     token_referencia = models.CharField(max_length=255, unique=True, null=False, blank=False)
     qrcode =  models.BinaryField(null=False, blank=True)
+ 
+ 
+ 
+ 
+class florArq(models.Model):
+    flor = models.BinaryField()
+    idflor = models.IntegerField(primary_key=True ,default=1)
+    
+    
+class iconLogoPage(models.Model):
+    icon = models.BinaryField()
+    logo = models.BinaryField()
+    idLogoicon = models.IntegerField(primary_key=True, default=0)
 
     
+    
+      
