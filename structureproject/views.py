@@ -22,7 +22,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'image.html')
+    return render(request, 'index.html')
 
 
 def ViewProdutoStatus(request):
@@ -215,6 +215,34 @@ def CreatePage(request, referencia, token):
             instanciaExtractFlor: extractFlorArq =  extractFlorArq()
             result, strErr, flor = instanciaExtractFlor.__extractArqAll__(id= JsonMensagem['flor']) 
             
+            if not result and strErr !='':
+                close_old_connections()
+                instancePageNotCarregadaErro: PageNotCarregadaErro = PageNotCarregadaErro
+                instancePageNotCarregadaErro.objects.create(
+                    token_referencia = referencia, 
+                    error_type = strErr
+                )
+                instancePageNotCarregadaErro.save()
+                return render(request, 'index.html', {'PageNotCarregadaErro': True, 'referenciaToken': referencia})
+            
+
+
+            instanceIconLogoPage: extractIconLogo = extractIconLogo()
+            result, strErr,logo, icon = instanceIconLogoPage.__extractArqAll__(id=1)
+
+
+            if not result and strErr !='':
+                close_old_connections()
+                instancePageNotCarregadaErro: PageNotCarregadaErro = PageNotCarregadaErro
+                instancePageNotCarregadaErro.objects.create(
+                    token_referencia = referencia, 
+                    error_type = strErr
+                )
+                instancePageNotCarregadaErro.save()
+                return render(request, 'index.html', {'PageNotCarregadaErro': True, 'referenciaToken': referencia})
+            
+
+
             instanceSaveTblob: SaveArquivosBlob = SaveArquivosBlob()
             result, strErr, images = instanceSaveTblob.__extractArqAll__(JsonMensagem['idfotosSalvas'])
             if not result and strErr !='':
@@ -225,13 +253,13 @@ def CreatePage(request, referencia, token):
                     error_type = strErr
                 )
                 instancePageNotCarregadaErro.save()
-                return render(request, 'index.html', {'PageNotCarregadaErro': True})
+                return render(request, 'index.html', {'PageNotCarregadaErro': True, 'referenciaToken': referencia})
             
 
             ListaMensagens:list[str] = getMensagens(len(images))
             imageAndMensagens: list[str] = zip(images, ListaMensagens)
 
-            return render(request, 'LovePage.html', {'JsonMensagem':JsonMensagem, 'dadosImageMensagem':imageAndMensagens})
+            return render(request, 'LovePage.html', {'JsonMensagem':JsonMensagem, 'dadosImageMensagem':imageAndMensagens, 'flor': flor, 'icon': icon, 'logo': logo})
                
     except Compra.DoesNotExist:
         return render(request, 'PageNotFound.html')
@@ -270,18 +298,3 @@ def custom_page_not_found(request, exception):
     return render(request, 'PageNotFound.html', status=404)
 
  
-def upload_logo_icon(request):
-    if request.method == 'POST' and request.FILES['icon'] and request.FILES['logo']:
-        icon_file = request.FILES['icon']
-        logo_file = request.FILES['logo']
-
-        # Converta os arquivos em formato binário
-        icon_data = icon_file.read()
-        logo_data = logo_file.read()
-
-        # Salvar no banco de dados
-        new_record = iconLogoPage(icon=icon_data, logo=logo_data)
-        new_record.save()
-
-        return HttpResponse("Arquivos carregados com sucesso!")
-    return render(request, 'upload.html')

@@ -51,7 +51,6 @@ class extractIconLogo:
         try:
             close_old_connections()
             Page = self.instanciaPgeIconLogo.objects.filter(idLogoicon=id)
-            imagens = []
 
             for arquivo in Page:
                 icon64link = f"data:image/jpeg;base64,{base64.b64encode(arquivo.icon).decode('utf-8')}"
