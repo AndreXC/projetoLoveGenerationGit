@@ -1,13 +1,14 @@
 import mercadopago
-import secrets
 from decouple import config
 from ...comuns.comuns import HostPagina
+from ..checkReference.referenceExist import create_reference
+
 
 class PaymentLinkGenerator:
     def __init__(self):
         # Inicializa o SDK do MercadoPago com a chave de autenticação
         self.sdk = mercadopago.SDK(config('ChaveSdkMercadoPagoProd'))
-        self.secrete:str = secrets.token_hex(10) 
+        self.secrete:str =  create_reference()
         self.Success:str = f"{HostPagina}/Aproved"
         self.failure:str = f"{HostPagina}/falilure"
         self.pending:str = f"{HostPagina}/Pending"    
@@ -33,6 +34,6 @@ class PaymentLinkGenerator:
                 "default_payment_type_id": "pix"
             },
             "external_reference": self.secrete,
-            "auto_return": "all" # retornar compras aprovadas automaticamente.
+            "auto_return": "all"
         }
 

@@ -6,7 +6,7 @@ from .dto.jsontoobjectGetproduto import TJSONGetProduto
 from .utils.pagamento.Payment import PaymentLinkGenerator
 from .utils.checandoPagamento.checkPayment import PaymentCheck
 from typing import Union
-from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro, iconLogoPage
+from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
@@ -15,14 +15,13 @@ import base64
 from .dto.JsonGetProdutoStatusCompra import PaymentData
 from .utils.Status_compra.statusCompra import OrdemStatusService 
 from django.db import close_old_connections
-from django.http import HttpResponse
 
 
 
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'image.html')
 
 
 def ViewProdutoStatus(request):
@@ -297,4 +296,3 @@ def search_produto(request):
 def custom_page_not_found(request, exception):
     return render(request, 'PageNotFound.html', status=404)
 
- 

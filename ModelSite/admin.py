@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Compra, Arquivo, paymentNotProcess, Error, PageNotCarregadaErro, florArq, iconLogoPage 
+from .models import Compra, Arquivo, paymentNotProcess, Error, PageNotCarregadaErro, florArq, iconLogoPage, QrcodeBinary
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
@@ -44,3 +44,8 @@ class iconLogoPageAdmin(admin.ModelAdmin):
     list_display = ('idLogoicon', 'icon', 'logo') 
 
 
+
+
+@admin.register(QrcodeBinary)
+class QrcodeBinaryAdmin(admin.ModelAdmin):
+    list_display= ('qrcode','idqrcode')
