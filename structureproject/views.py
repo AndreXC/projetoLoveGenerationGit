@@ -21,7 +21,7 @@ from django.db import close_old_connections
 
 
 def index(request):
-    return render(request, 'image.html')
+    return render(request, 'index.html')
 
 
 def ViewProdutoStatus(request):
