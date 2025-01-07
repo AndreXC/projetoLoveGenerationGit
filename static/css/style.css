@@ -1,0 +1,1117 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #000 !important;
+    color: #fff !important;
+    line-height: 1.6 !important;
+    padding: 20px !important;
+    overflow-x: hidden !important;
+    /* Impede rolagem horizontal */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: #ff0000;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.header p {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: white;
+    text-align: justify;
+}
+
+.Mensagem1 {
+    border: 1px dashed red;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.header ul {
+    list-style-type: none;
+    /* Remove os marcadores padrão */
+    padding: 0;
+    /* Remove o padding padrão */
+    margin: 20px 0;
+    /* Espaçamento em torno da lista */
+}
+
+.header li {
+    border: 1px dashed red;
+    /* Borda sutil */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    padding: 10px;
+    /* Espaçamento interno */
+    margin-bottom: 10px;
+    /* Espaçamento entre itens */
+    transition: background-color 0.3s;
+    /* Transição suave para hover */
+    text-align: justify;
+}
+
+
+
+.input-section {
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    backdrop-filter: blur(18px);
+    border: 1px dashed red;
+}
+
+.input-section h2 {
+    font-size: 2.2rem;
+    color: #ff0000;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #ff0000;
+}
+
+
+/* Ajuste do tamanho do carrossel */
+#carouselExampleIndicators {
+    width: 100%;
+    /* Ajusta a largura do carrossel */
+    margin: 0 auto;
+    /* Centraliza o carrossel */
+}
+
+/* Ajusta a altura das imagens */
+.carousel-item img {
+    width: 100%;
+    height: auto !important;
+}
+
+
+
+/* Estilos da div para cada input */
+.input-wrapper,
+.textarea-wrapper {
+    width: 100%;
+    position: relative;
+    /* Necessário para a posição da label */
+    margin-bottom: 20px;
+    /* Espaço entre input e textarea */
+}
+
+/* Estilos do input */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: transparent;
+    backdrop-filter: blur(18px);
+    ;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+/* Animação da label do input */
+.input-label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    /* Posição inicial da label */
+    color: #aaa;
+    transition: 0.3s ease;
+    pointer-events: none;
+    /* Impede a interação com a label */
+    font-size: 16px;
+    /* Tamanho da fonte inicial */
+}
+
+.input-field:focus+.input-label,
+.input-field:not(:placeholder-shown)+.input-label {
+    top: -22px;
+    /* Move a label para cima */
+    left: 10px;
+    /* Ajusta a posição da label */
+    color: #fa0000;
+    /* Cor da label ao focar */
+    font-weight: bold;
+    font-size: 15px;
+    /* Tamanho menor quando a label flutua */
+}
+
+/* Estilos do textarea */
+.textarea-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid;
+    border-radius: 8px;
+    backdrop-filter: blur(18px);
+    background-color: transparent;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    height: 200px;
+    top: 11px;
+    position: relative;
+
+}
+
+/* Animação da label do textarea */
+.textarea-label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    /* Posição inicial da label */
+    color: #aaa;
+    transition: 0.3s ease;
+    pointer-events: none;
+    /* Impede a interação com a label */
+    font-size: 16px;
+    /* Tamanho da fonte inicial */
+}
+
+.textarea-field:focus+.textarea-label,
+.textarea-field:not(:placeholder-shown)+.textarea-label {
+    top: -15px;
+    /* Move a label para cima */
+    left: 10px;
+    /* Ajusta a posição da label */
+    color: #fa0000;
+    /* Cor da label ao focar */
+    font-weight: bold;
+    font-size: 15px;
+    /* Tamanho menor quando a label flutua */
+}
+
+
+
+/* Estilizando a barra de rolagem para WebKit */
+textarea::-webkit-scrollbar {
+    width: 5px;
+    /* Largura da barra de rolagem */
+}
+
+textarea::-webkit-scrollbar-track {
+    background: rgba(68, 68, 68, 0.5);
+    /* Cor do fundo da barra de rolagem */
+    border-radius: 12px;
+    /* Arredondamento do fundo */
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: rgb(226, 226, 226);
+    /* Cor do 'thumb' (parte que pode ser arrastada) */
+    border-radius: 20px;
+    /* Arredondamento do 'thumb' */
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #d00;
+    /* Cor do 'thumb' ao passar o mouse */
+}
+
+
+
+/* Botão estilizado */
+#submitBtn {
+    /* Estilando o botão com classe específica para responsividade e sofisticação */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /* Cores modernas */
+    border: none;
+    border-radius: 25px;
+    /* Bordas arredondadas */
+    color: #fff;
+    /* Texto branco */
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Transição suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra sutil */
+}
+
+/* Efeito no hover */
+#submitBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    #submitBtn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #submitBtn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+
+/* color: #fff;
+    background-color: #222;
+    padding: 20px 25px;
+    border: 1px solid red;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#submitBtn:hover {
+    background-color: #c0392b;
+    /* Tom mais escuro ao passar o mouse */
+/* transform: translateY(-3px);
+    /* Eleva o botão levemente */
+/* box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    /* Aumenta a sombra para destaque */
+
+/* #submitBtn:active {
+    background-color: #a93226;
+    /* Tom ainda mais escuro ao clicar */
+/* transform: translateY(0);
+    /* Remove a elevação ao clicar */
+/* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */
+/* Volta a sombra ao estado normal */
+/* }*/
+
+/* Círculo de carregamento */
+.loading {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    /* Fundo transparente */
+    border-top: 4px solid #e74c3c;
+    /* Vermelho sofisticado */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1.5s linear infinite;
+    margin: 20px auto;
+    /* Centralizar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Estilo do rodapé */
+.footer {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    color: #ccc;
+    margin-top: 30px;
+}
+
+/* Botão flutuante para rolar ao topo */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    transition: background-color 0.3s ease;
+}
+
+.scroll-top-btn:hover {
+    background-color: #cc0000;
+}
+
+/* Efeito de corações flutuantes */
+.hearts {
+    position: fixed;
+    bottom: 0;
+    /* Começar na parte inferior da tela */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Permitir interação com outros elementos */
+    z-index: -1;
+    /* Colocar atrás do conteúdo */
+}
+
+.heart_animation {
+    position: absolute;
+    animation: float 5s infinite ease-in-out;
+    /* Animação contínua */
+    opacity: 0.8;
+    /* Leve transparência para os corações */
+    transform: translateY(0);
+    /* Inicialmente em sua posição */
+    user-select: none;
+    /* Previne seleção do emoji */
+}
+
+
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+        /* Posição inicial */
+        opacity: 1;
+        /* Totalmente visível */
+    }
+
+    100% {
+        transform: translateY(-100vh) scale(0.5);
+        /* Subir e diminuir */
+        opacity: 0;
+        /* Desaparece ao subir */
+    }
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .input-section h2 {
+        font-size: 1.5rem;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+}
+
+.flower-selection {
+    text-align: center;
+    /* Centraliza o texto */
+    margin: 30px 0;
+    /* Margem superior e inferior */
+}
+
+.flower-selection h3 {
+    font-size: 1.2rem;
+    /* Tamanho do título */
+    color: #ff0000;
+    /* Cor do título */
+    margin-bottom: 20px;
+    /* Espaçamento abaixo do título */
+}
+
+.flower-box-container {
+    display: flex;
+    /* Usar flexbox para alinhar os quadrados lado a lado */
+    justify-content: center;
+    /* Centraliza os quadrados na seção */
+    align-items: center;
+    /* Alinha verticalmente os quadrados */
+    flex-wrap: wrap;
+    /* Permite que os quadrados quebrem para a linha seguinte */
+}
+
+.flower-box {
+    width: 160px;
+    /* Largura do quadrado */
+    height: 169px;
+    /* Altura do quadrado */
+    margin: 0 15px;
+    /* Espaçamento entre os quadrados */
+    background-size: cover;
+    /* Ajustar a imagem ao tamanho do quadrado */
+    border: 3px solid transparent;
+    /* Bordas transparentes por padrão */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    transition: border-color 0.3s, transform 0.3s;
+    /* Transições suaves para a borda e transformação */
+    cursor: pointer;
+    /* Mão ao passar o mouse */
+}
+
+.flower-box:hover {
+    border-color: #ff0000;
+    /* Muda a cor da borda ao passar o mouse */
+    transform: scale(1.1);
+    /* Aumenta o tamanho do quadrado ao passar o mouse */
+}
+
+.flower-box.selected {
+    border-color: #ff0000;
+    /* Borda vermelha para o quadrado selecionado */
+    animation: pulse 0.5s infinite;
+    /* Animação de pulsação */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        /* Sombra suave */
+    }
+
+    50% {
+        transform: scale(1.1);
+        /* Cresce um pouco */
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        /* Brilho mais forte */
+    }
+
+    100% {
+        transform: scale(1);
+        /* Volta ao tamanho original */
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        /* Retorna à sombra original */
+    }
+}
+
+/* Media queries para responsividade */
+@media (max-width: 768px) {
+
+    .flower-box {
+        width: 100px;
+        /* Largura menor em telas pequenas */
+        height: 100px;
+        /* Altura menor em telas pequenas */
+        margin: 10px 0;
+        /* Adiciona espaçamento vertical entre os itens */
+    }
+
+    .flower-box-container {
+        flex-direction: column;
+        /* Alinha os quadrados verticalmente em telas pequenas */
+        align-items: center;
+        /* Centraliza os quadrados verticalmente */
+    }
+
+    #mensagem {
+        height: 180px !important;
+        width: 100% !important;
+    }
+
+    /* .modal-content {
+        margin: 30% auto !important;
+    } */
+
+    .ServiceParagrafo {
+        font-size: 11px !important;
+    }
+
+    .header p {
+        text-align: center;
+        font-size: 1em;
+
+    }
+
+    .header li {
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .input-label {
+        font-size: 10px !important;
+    }
+
+    .textarea-label {
+        font-size: 10px !important;
+
+    }
+
+    .inputhora-wrapper {
+        top: 23px !important;
+
+    }
+
+    .carousel-indicators li{
+        padding: 3px !important;
+
+    }
+}
+
+
+@media (max-width: 480px) {
+    .flower-selection h3 {
+        font-size: 1.2rem;
+        /* Reduz ainda mais o tamanho do título em telas muito pequenas */
+    }
+
+    .flower-box {
+        width: 110px;
+        /* Largura menor em telas muito pequenas */
+        height: 110px;
+        /* Altura menor em telas muito pequenas */
+        margin: 10px 0;
+        /* Adiciona espaçamento vertical entre os itens */
+    }
+
+    .flower-box-container {
+        margin: 0 10px;
+        /* Margem reduzida em telas pequenas */
+    }
+
+    /* .modal-content {
+        margin: 22% auto !important;
+    } */
+
+    .ServiceParagrafo {
+        font-size: 11px !important;
+    }
+
+    #mensagem {
+        height: 180px !important;
+        width: 100% !important;
+    }
+
+    .header p {
+        text-align: center;
+        font-size: 1em;
+
+    }
+
+    .header li {
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .input-label {
+        font-size: 10px !important;
+    }
+
+    .textarea-label {
+        font-size: 10px !important;
+
+    }
+
+    .input-field:focus+.input-label,
+    .input-field:not(:placeholder-shown)+.input-label {
+        top: -18px;
+    }
+
+    .textarea-field:focus+.textarea-label,
+    .textarea-field:not(:placeholder-shown)+.textarea-label {
+        top: -10px;
+    }
+
+    .inputhora-wrapper {
+        top: 23px !important;
+
+    }
+
+
+    .carousel-indicators li {
+        padding: 3px !important;
+
+    }
+
+    .carousel-indicators li {
+        padding: 3px !important;
+    }
+
+}
+
+
+
+/* Estilos para o dropzone */
+.dropzone {
+    text-align: center;
+    border: 2px dashed #ff0000;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: 28px;
+}
+
+.dropzone h3,
+.dropzone p {
+    color: #ff0000;
+    /* Texto vermelho */
+}
+
+#fileInput {
+    display: none;
+    /* Esconde o input de arquivos padrão */
+}
+
+.dropzone.active {
+    background-color: white;
+    /* Muda a cor ao arrastar */
+    color: #fff;
+    /* Texto branco */
+}
+
+/* Estilo da lista de arquivos */
+#fileList {
+    list-style-type: none;
+    /* Remove as bolinhas da lista */
+    padding: 0;
+    margin-top: 15px;
+    text-align: left;
+}
+
+/* Estilo dos itens da lista */
+#fileList li {
+    display: flex;
+    /* Alinha o nome do arquivo e o botão de fechar */
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #000000;
+    /* Fundo preto */
+    color: #ffffff;
+    /* Texto branco */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    /* Espaçamento entre os itens */
+}
+
+/* Estilo do botão "X" para remover arquivos */
+#fileList li button.remove-file {
+    background-color: transparent;
+    /* Sem fundo */
+    border: none;
+    color: #ff0000;
+    /* Cor vermelha para o botão "X" */
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    /* Transição suave */
+}
+
+#fileList li button.remove-file:hover {
+    color: #ffffff;
+    /* Muda para branco ao passar o mouse */
+}
+
+
+/* Modal - oculto por padrão */
+.modal {
+    display: none;
+    /* Inicialmente escondido */
+    position: fixed;
+    z-index: 1000;
+    /* Fica acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fundo preto semitransparente */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    position: relative;
+    margin: 3% auto !important;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    background-color: #222;
+    /* Fundo preto */
+    border: 2px solid #ff0000;
+    /* Borda vermelha */
+    border-radius: 10px;
+    color: #fff;
+    /* Texto branco */
+    text-align: center;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    /* Brilho vermelho */
+}
+
+/* Título do modal */
+.modal-title {
+    font-size: 2rem;
+    color: #ff0000;
+    /* Título vermelho */
+    margin-bottom: 15px;
+}
+
+/* Mensagem dentro do modal */
+.modal-message {
+    font-size: 1.2rem;
+    color: #fff;
+    /* Texto branco */
+    margin-bottom: 20px;
+    height: 500px;
+    overflow: auto;
+
+    /* Estilo para barra de rolagem */
+    scrollbar-width: thin; /* Para navegadores compatíveis com scrollbar-width */
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Cor barra/pista */
+}
+
+.modal-message::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+    background-color: transparent; /* Fundo transparente */
+}
+
+.modal-message::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5); /* Cor do polegar */
+    border-radius: 10px; /* Deixa a barra arredondada */
+}
+
+.modal-message::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Cor ao passar o mouse */
+}
+
+.modal-message:hover::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.1); /* Exibe a pista ao passar o mouse */
+}
+
+/* Botão de fechar o modal */
+.modal-btn {
+    background-color: #ff0000;
+    /* Fundo vermelho */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-btn:hover {
+    background-color: #cc0000;
+    /* Vermelho mais escuro ao passar o mouse */
+}
+
+.close-btn {
+    position: absolute;
+    top: 7px;
+    right: 14px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.animated-button {
+    background-color: #222;
+    /* Cor de fundo */
+    border: 1px solid red !important;
+    color: white;
+    /* Cor do texto */
+    border: none;
+    /* Remover borda */
+    padding: 10px 20px;
+    /* Espaçamento interno */
+    cursor: pointer;
+    /* Cursor de ponteiro */
+    font-size: 16px;
+    /* Tamanho da fonte */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    transition: transform 0.2s;
+    /* Animação de transição */
+}
+
+.animated-button:hover {
+    background-color: #c0392b;
+    /* Tom mais escuro ao passar o mouse */
+    transform: translateY(-3px);
+    /* Eleva o botão levemente */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    /* Aumenta a sombra para destaque */
+}
+
+
+/* Estilos da Seção de Serviços */
+.service-selection {
+    margin: 20px 0;
+    padding: 20px;
+    /* Aumentei o padding para mais espaço interno */
+}
+
+
+.service-selection h3 {
+    color: #ff0000;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+    /* Mudei a fonte para uma serifada, mais romântica */
+    font-size: 1.2em;
+    /* Aumentei o tamanho da fonte */
+
+}
+
+
+/* Estilos dos Botões de Rádio */
+.service-selection label {
+    display: flex;
+    /* Torna o layout mais flexível */
+    align-items: center;
+    /* Centraliza o texto verticalmente */
+    margin: 12px 0;
+    /* Aumentei o espaçamento entre as opções */
+    padding: 12px;
+    /* Aumentei o padding para mais espaço interno */
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    /* Aumentei o raio da borda */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    /* Indica que é clicável */
+    backdrop-filter: blur(18px);
+    /* Fundo branco padrão */
+}
+
+.service-selection input[type="radio"] {
+    margin-right: 15px;
+    /* Aumentei o espaçamento entre o radio e o texto */
+    accent-color: #b22222;
+    /* Altera a cor do radio button */
+}
+
+
+.ServiceParagrafo {
+    color: white;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+/* Estilo para quando o mouse está sobre a opção */
+.service-selection label:hover {
+    border-color: #b22222;
+    /* Cor da borda ao passar o mouse */
+    transform: translateY(-2px);
+    /* Levanta a opção */
+}
+
+/* Estilos do Preço */
+#priceDisplay {
+    margin-top: 15px;
+    color: #ffffff;
+    font-size: 1.2em;
+    font-family: 'Poppins', sans-serif;
+    width: 166px;
+    border: 1px solid #fd1a1a;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+
+
+
+/* Estilo responsivo */
+.date-time-section,
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 61px;
+}
+
+/* Checkbox personalizado */
+.checkbox-wrapper {
+    gap: 10px;
+    position: relative;
+    align-items: center;
+}
+
+.checkbox-field {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-field+.checkbox-label {
+    padding-left: 30px;
+    font-size: 1rem;
+    color: red;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-field+.checkbox-label::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 51%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+.checkbox-field:checked+.checkbox-label::before {
+    background-color: red;
+    border: 2px solid RED;
+}
+
+.checkbox-field:checked+.checkbox-label::after {
+    content: "✔";
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: white;
+}
+
+/* Estilos para campos de data e hora */
+.date-time-section {
+    width: 100%;
+}
+
+
+.date-time-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 96%;
+    margin: 15px;
+}
+
+/* Estilos para input de data */
+.inputdate-wrapper,
+.inputhora-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.inputdate-field,
+.inputhora-field {
+    border: 1px solid white;
+    background-color: transparent;
+    outline: none;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+
+
+.inputdate-label,
+.inputhora-label {
+    position: absolute;
+    top: -20px;
+    left: 8px;
+    font-size: 0.85rem;
+    color: red;
+    padding: 0 6px;
+    pointer-events: none;
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+
+
+/* Estilo para o botão de seleção de data e hora */
+.inputdate-field::-webkit-calendar-picker-indicator,
+.inputhora-field::-webkit-calendar-picker-indicator {
+    background-color: red;
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.inputdate-field:hover::-webkit-calendar-picker-indicator,
+.inputhora-field:hover::-webkit-calendar-picker-indicator {
+    background-color: #d45a5a;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .date-time-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .inputdate-field,
+    .inputhora-field {
+        font-size: 1rem;
+    }
+}
+
+
+/* Estilando o botão com classe específica para responsividade e sofisticação */
+.button_li_love {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /* Cores modernas */
+    border: none;
+    border-radius: 25px;
+    /* Bordas arredondadas */
+    color: #fff;
+    /* Texto branco */
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Transição suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra sutil */
+}
+
+/* Efeito no hover */
+.button_li_love:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .button_li_love {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button_li_love {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+
+
+@media (max-width: 375px) and (max-height: 667px) {
+    .modal-message {
+        height: 430px !important;
+
+    }
+  }

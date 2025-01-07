@@ -12,10 +12,32 @@
 
 <body>
     <div class="hearts"></div>
-
     <!-- Botão de Música -->
     <div class="music-icon paused" id="musicIcon">
         <img src="{{ icon }}" alt="">
+    </div>
+
+    <div class="iconnTimeLove" id="IconTimeLoveOpen">
+        ❤️
+    </div>
+    <div class="LoveModalTimerLoveTimer" id="LoveModalTimerLoveTimer">
+        <div class="modal-contentLoveTimer">
+            <span class="close-btnLoveTimer" id="CloseLoveModalTimerLoveTimer">&times;</span>
+            {% if JsonMensagem.data != '' and JsonMensagem.hour != '' %}
+                        <div class="ContainerNamoroResponsivo">
+                            <h1>Tempo que estamos juntos, meu amor {{ JsonMensagem.nome }} ❤️</h1>
+                            <p>Já estamos juntos há:</p>
+                            <p class="time" id="time-display_responsivo"></p>
+                        </div>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                            const DateVar = '{{ JsonMensagem.data }}';
+                            const hourvar = '{{ JsonMensagem.hour }}';
+                            calculateTimeDifference(DateVar, hourvar);
+                        });
+                    </script>
+            {% endif %}
+        </div>
     </div>
 
     <div class="container">
@@ -51,45 +73,53 @@
                             const hourvar = '{{ JsonMensagem.hour }}';
                             calculateTimeDifference(DateVar, hourvar);
                         });
-
                     </script>
-
-                    
                 {% endif %}
-
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal -->   
     <div id="loveModal" class="modal hidden">
         <div class="modal-content">
             <span id="closeModal" class="close-btn">&times;</span>
-            <div class="carousel-container">
-                <div class="carousel">
-                    {% if dadosImageMensagem %}
-                    {% for imagem, mensagem in dadosImageMensagem %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ imagem }}" alt="Imagem Romântica">
-                        <p class="caption">{{ mensagem }}</p>
+            <div id="page" class="page active">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        {% if dadosImageMensagem %}
+                        {% for imagem, mensagem in dadosImageMensagem %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ imagem }}" alt="Imagem Romântica">
+                            <p class="caption">{{ mensagem }}</p>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                    {% endif %}
+                    <button class="carousel-button prev">&#9664;</button>
+                    <button class="carousel-button next">&#9654;</button>
                 </div>
-                <button class="carousel-button prev">&lt;</button>
-                <button class="carousel-button next">&gt;</button>
             </div>
-            <h2>Minha Mensagem de Amor</h2>
-            <p>{{ JsonMensagem.mensagem }}</p>
+            <div id="page2" class="page">
+                <h1>Esta é minha mensagem de amor para você {{ JsonMensagem.nome }} ❤️</h1>
+                <p>{{ JsonMensagem.mensagem }}</p>
+                <h1>Eu te amo! {{ JsonMensagem.nome }} ❤️</h1>
+            </div>
+    
+            <div class="pagination">
+                <button class="pagination-button2 prev">&#9664;</button>
+                <button class="pagination-button2 next">&#9654;</button>
+            </div>
         </div>
     </div>
-</body>
-
+    </body>
+    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static 'js/HearthScript.js' %}"></script>
 <script src="{% static 'js/animationFlower.js' %}"></script>
 <script src="{% static 'js/ModalPageLove.js' %}"></script>
 <script src="{% static 'js/music.js' %}"></script>
+<script src="{% static 'js/modalLoveTimer.js' %}"></script>
+<script src="{% static 'js/PageBookLove.js' %}"></script>
 <script>
     setupMusic([
       "{% static 'music/music1.mp3' %}",
@@ -99,5 +129,4 @@
 </script>
 <script src="{% static 'js/TimeLove.js' %}"></script>
 <script src="{% static 'js/carrosseulImage.js' %}"></script>
-
 </html>
