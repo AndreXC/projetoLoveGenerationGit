@@ -211,7 +211,7 @@ body {
     /* Começa invisível */
     animation: fadeIn 10s ease forwards;
     /* Animação de fade-in */
-    top: 195px;
+    top: 109px;
   }
   
   
@@ -616,6 +616,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
+    top: 1px;
 }
 
 
