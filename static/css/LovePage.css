@@ -651,6 +651,11 @@ body {
 
     }
 
+    .bouquet {
+      position: relative;
+      top: 65px;
+    }
+
     
 
     .modal-content p {
@@ -683,8 +688,10 @@ body {
       display:  none !important;
 
     }
-
-
+    .bouquet {
+      position: relative;
+      top: 65px;
+    }
 
     #IconTimeLoveOpen {
       display: flex !important;
@@ -713,7 +720,11 @@ body {
     .bouquet img {
       bottom: 89px !important;
     }
-  
+    
+    .bouquet {
+      position: relative;
+      top: 65px;
+    }
   
     .container_tempo_namoro {
       right: 8px !important;
@@ -737,7 +748,6 @@ body {
   }
   
  
-
 
   
   }
@@ -772,7 +782,10 @@ body {
       max-width: 673px  !important;
 
     }
-
+    .bouquet {
+      position: relative;
+      top: 65px;
+    }
       
       .modal-content p {
         overflow: auto;
@@ -802,7 +815,10 @@ body {
       #IconTimeLoveOpen {
         display: flex !important;
       }
-  
+      .bouquet {
+        position: relative;
+        top: 65px;
+      }
 
   }
 
