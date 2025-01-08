@@ -966,4 +966,10 @@ body {
     max-width: 500px !important;
 
   }
+  
+  .modal-content {
+    max-width: 431px !important;
+    height: calc(80vh - 3px) !important;
+
+  }
 }
