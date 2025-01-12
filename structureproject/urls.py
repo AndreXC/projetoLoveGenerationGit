@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import index, love_message_view, CreatePayment, mercado_pago_webhook, CreatePage, ViewProdutoStatus, search_produto, _Status_ , custom_page_not_found
+from .views import index, love_message_view, CreatePayment, mercado_pago_webhook, CreatePage, ViewProdutoStatus, search_produto, _Status_ , custom_page_not_found, GetCompras
 from django.conf import settings
 from django.conf.urls.static import static  
 from django.urls import re_path
@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/webhook/', mercado_pago_webhook, name='mercado_pago_webhook'),
     path('produto/visualizar/', ViewProdutoStatus, name='produtoVisualizar'),
     path('api/search_produto/', search_produto, name='search_produto'),
+    path('api/compras/<str:token>', GetCompras, name='compras_get')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -6,7 +6,7 @@ from .dto.jsontoobjectGetproduto import TJSONGetProduto
 from .utils.pagamento.Payment import PaymentLinkGenerator
 from .utils.checandoPagamento.checkPayment import PaymentCheck
 from typing import Union
-from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro
+from ModelSite.models import Compra, Error, paymentNotProcess, PageNotCarregadaErro, tokenApi
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .comuns.SaveArqBd.SaveArqBd import SaveArquivosBlob
@@ -295,4 +295,35 @@ def search_produto(request):
 # View para lidar com a página 404 personalizada
 def custom_page_not_found(request, exception):
     return render(request, 'PageNotFound.html', status=404)
+
+
+
+
+def GetCompras(request, token):
+    try:
+        if not tokenApi.objects.filter(token=token).exists():
+            return JsonResponse({'tokenInvalido': True}, status=404)
+
+        compras: Compra = Compra.objects.all()
+        
+        compras_lista:list[dict] = [
+            {
+                "token_referencia": compra.token_referencia,
+                "status_compra": compra.status_compra,
+                "dados_requisicao": compra.dados_requisicao,
+                "created_at": compra.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "updated_at": compra.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "clienteId": compra.clienteId,
+                "TokenLove": compra.TokenLove,
+                "qrcode": base64.b64encode(compra.qrcode).decode('utf-8') if compra.qrcode else None,
+                "SendEmailCliente": compra.SendEmailCliente,
+            }
+            for compra in compras
+        ]
+
+        return JsonResponse(compras_lista, safe=False)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
 

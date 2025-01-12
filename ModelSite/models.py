@@ -92,11 +92,15 @@ class iconLogoPage(models.Model):
     logo = models.BinaryField()
     idLogoicon = models.IntegerField(primary_key=True, default=0)
 
-
-
 class QrcodeBinary(models.Model):
     qrcode = models.BinaryField()
     idqrcode =models.IntegerField(primary_key=True, default=0)
+
+
+
+class tokenApi(models.Model):
+    token  =  models.CharField(max_length=255)
+    idtoken = models.IntegerField(primary_key=True, default=1)
 
 
 
