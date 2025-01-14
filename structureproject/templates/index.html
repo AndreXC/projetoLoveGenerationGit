@@ -32,16 +32,18 @@
         {% if PageNotCarregadaErro %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                window.location.href = window.location.origin;
                 openLoveModal("Não foi possível abrir sua página. Por favor, envie um e-mail para supportLoveGeneration@lovegeneration.online com o seu token, para que possamos entender o ocorrido: {{ referenciaToken }}, ou tente abrir a pagina, mais tarde!", "Erro");
+
             });
         </script>
         {% endif %}
 
 
-
         {% if CreatePaymentError %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                window.location.href = window.location.origin;
                 openLoveModal("Não foi possivel processar seu pedido, Tente novamente mais tarde!", "Erro");
             });
         </script>
@@ -51,6 +53,7 @@
         {% if CompraErro %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                window.location.href = window.location.origin;
                 openLoveModal("Erro na Compra!<br>ID do Pagamento: {{ id }} <br>Referencia de compra: {{ ExternalReference }}. Envie seu id e referencia de compra para nosso suporte, vamos analisar seu caso.", "Erro");
             });
         </script>
@@ -59,6 +62,7 @@
         {% if Compra and StatusCompra %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                window.location.href = window.location.origin;
                 openLoveModal("Compra concluída com sucesso!<br>Status: {{ StatusCompra }}", "Sucesso");
             });
         </script>
@@ -67,6 +71,7 @@
         {% if Compra_ and ExternalReference %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                window.location.href = window.location.origin;
                 openLoveModal("Referência externa detectada!<br>Referência: {{ ExternalReference }}", "Referência Externa");
             });
         </script>
