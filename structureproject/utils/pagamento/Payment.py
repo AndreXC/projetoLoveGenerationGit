@@ -29,10 +29,10 @@ class PaymentLinkGenerator:
                 "failure": self.failure,
                 "pending": self.pending,
             },
-             "payment_methods": {
-                "default_payment_method_id": "pix",
-                "default_payment_type_id": "pix"
-            },
+            #  "payment_methods": {
+            #     "default_payment_method_id": "pix",
+            #     "default_payment_type_id": "pix"
+            # },
             "external_reference": self.secrete,
             "auto_return": "all"
         }

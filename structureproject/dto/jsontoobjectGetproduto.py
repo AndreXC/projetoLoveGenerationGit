@@ -1,5 +1,6 @@
-from dataclasses import dataclass
 from typing import Any, List, TypeVar, Type, cast, Callable
+from datetime import datetime
+import dateutil.parser
 
 
 T = TypeVar("T")
@@ -35,11 +36,19 @@ def from_int(x: Any) -> int:
     return x
 
 
-@dataclass
+def from_datetime(x: Any) -> datetime:
+    return dateutil.parser.parse(x)
+
+
 class Urls:
     failure: str
     pending: str
     success: str
+
+    def __init__(self, failure: str, pending: str, success: str) -> None:
+        self.failure = failure
+        self.pending = pending
+        self.success = success
 
     @staticmethod
     def from_dict(obj: Any) -> 'Urls':
@@ -57,9 +66,11 @@ class Urls:
         return result
 
 
-@dataclass
 class Metadata:
     pass
+
+    def __init__(self, ) -> None:
+        pass
 
     @staticmethod
     def from_dict(obj: Any) -> 'Metadata':
@@ -71,7 +82,6 @@ class Metadata:
         return result
 
 
-@dataclass
 class Payer:
     phone: Metadata
     address: Metadata
@@ -81,6 +91,16 @@ class Payer:
     surname: str
     date_created: None
     last_purchase: None
+
+    def __init__(self, phone: Metadata, address: Metadata, email: str, identification: Metadata, name: str, surname: str, date_created: None, last_purchase: None) -> None:
+        self.phone = phone
+        self.address = address
+        self.email = email
+        self.identification = identification
+        self.name = name
+        self.surname = surname
+        self.date_created = date_created
+        self.last_purchase = last_purchase
 
     @staticmethod
     def from_dict(obj: Any) -> 'Payer':
@@ -108,20 +128,27 @@ class Payer:
         return result
 
 
-@dataclass
 class PaymentMethods:
     default_card_id: None
-    default_payment_method_id: str
+    default_payment_method_id: None
     excluded_payment_methods: List[Any]
     excluded_payment_types: List[Any]
     installments: None
     default_installments: None
 
+    def __init__(self, default_card_id: None, default_payment_method_id: None, excluded_payment_methods: List[Any], excluded_payment_types: List[Any], installments: None, default_installments: None) -> None:
+        self.default_card_id = default_card_id
+        self.default_payment_method_id = default_payment_method_id
+        self.excluded_payment_methods = excluded_payment_methods
+        self.excluded_payment_types = excluded_payment_types
+        self.installments = installments
+        self.default_installments = default_installments
+
     @staticmethod
     def from_dict(obj: Any) -> 'PaymentMethods':
         assert isinstance(obj, dict)
         default_card_id = from_none(obj.get("default_card_id"))
-        default_payment_method_id = from_str(obj.get("default_payment_method_id"))
+        default_payment_method_id = from_none(obj.get("default_payment_method_id"))
         excluded_payment_methods = from_list(lambda x: x, obj.get("excluded_payment_methods"))
         excluded_payment_types = from_list(lambda x: x, obj.get("excluded_payment_types"))
         installments = from_none(obj.get("installments"))
@@ -131,7 +158,7 @@ class PaymentMethods:
     def to_dict(self) -> dict:
         result: dict = {}
         result["default_card_id"] = from_none(self.default_card_id)
-        result["default_payment_method_id"] = from_str(self.default_payment_method_id)
+        result["default_payment_method_id"] = from_none(self.default_payment_method_id)
         result["excluded_payment_methods"] = from_list(lambda x: x, self.excluded_payment_methods)
         result["excluded_payment_types"] = from_list(lambda x: x, self.excluded_payment_types)
         result["installments"] = from_none(self.installments)
@@ -139,10 +166,13 @@ class PaymentMethods:
         return result
 
 
-@dataclass
 class Shipments:
     default_shipping_method: None
     receiver_address: Metadata
+
+    def __init__(self, default_shipping_method: None, receiver_address: Metadata) -> None:
+        self.default_shipping_method = default_shipping_method
+        self.receiver_address = receiver_address
 
     @staticmethod
     def from_dict(obj: Any) -> 'Shipments':
@@ -158,7 +188,6 @@ class Shipments:
         return result
 
 
-@dataclass
 class TJSONGetProduto:
     additional_info: str
     auto_return: str
@@ -168,7 +197,7 @@ class TJSONGetProduto:
     collector_id: int
     coupon_code: None
     coupon_labels: None
-    date_created: str
+    date_created: datetime
     date_of_expiration: None
     expiration_date_from: None
     expiration_date_to: None
@@ -195,6 +224,42 @@ class TJSONGetProduto:
     last_updated: None
     financing_group: str
 
+    def __init__(self, additional_info: str, auto_return: str, back_urls: Urls, binary_mode: bool, client_id: str, collector_id: int, coupon_code: None, coupon_labels: None, date_created: datetime, date_of_expiration: None, expiration_date_from: None, expiration_date_to: None, expires: bool, external_reference: str, id: str, init_point: str, internal_metadata: None, items: List[Metadata], marketplace: str, marketplace_fee: int, metadata: Metadata, notification_url: None, operation_type: str, payer: Payer, payment_methods: PaymentMethods, processing_modes: None, product_id: None, redirect_urls: Urls, sandbox_init_point: str, site_id: str, shipments: Shipments, total_amount: None, last_updated: None, financing_group: str) -> None:
+        self.additional_info = additional_info
+        self.auto_return = auto_return
+        self.back_urls = back_urls
+        self.binary_mode = binary_mode
+        self.client_id = client_id
+        self.collector_id = collector_id
+        self.coupon_code = coupon_code
+        self.coupon_labels = coupon_labels
+        self.date_created = date_created
+        self.date_of_expiration = date_of_expiration
+        self.expiration_date_from = expiration_date_from
+        self.expiration_date_to = expiration_date_to
+        self.expires = expires
+        self.external_reference = external_reference
+        self.id = id
+        self.init_point = init_point
+        self.internal_metadata = internal_metadata
+        self.items = items
+        self.marketplace = marketplace
+        self.marketplace_fee = marketplace_fee
+        self.metadata = metadata
+        self.notification_url = notification_url
+        self.operation_type = operation_type
+        self.payer = payer
+        self.payment_methods = payment_methods
+        self.processing_modes = processing_modes
+        self.product_id = product_id
+        self.redirect_urls = redirect_urls
+        self.sandbox_init_point = sandbox_init_point
+        self.site_id = site_id
+        self.shipments = shipments
+        self.total_amount = total_amount
+        self.last_updated = last_updated
+        self.financing_group = financing_group
+
     @staticmethod
     def from_dict(obj: Any) -> 'TJSONGetProduto':
         assert isinstance(obj, dict)
@@ -206,7 +271,7 @@ class TJSONGetProduto:
         collector_id = from_int(obj.get("collector_id"))
         coupon_code = from_none(obj.get("coupon_code"))
         coupon_labels = from_none(obj.get("coupon_labels"))
-        date_created = from_str(obj.get("date_created"))
+        date_created = from_datetime(obj.get("date_created"))
         date_of_expiration = from_none(obj.get("date_of_expiration"))
         expiration_date_from = from_none(obj.get("expiration_date_from"))
         expiration_date_to = from_none(obj.get("expiration_date_to"))
@@ -244,7 +309,7 @@ class TJSONGetProduto:
         result["collector_id"] = from_int(self.collector_id)
         result["coupon_code"] = from_none(self.coupon_code)
         result["coupon_labels"] = from_none(self.coupon_labels)
-        result["date_created"] = from_str(self.date_created)
+        result["date_created"] = self.date_created.isoformat()
         result["date_of_expiration"] = from_none(self.date_of_expiration)
         result["expiration_date_from"] = from_none(self.expiration_date_from)
         result["expiration_date_to"] = from_none(self.expiration_date_to)
