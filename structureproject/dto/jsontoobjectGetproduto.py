@@ -1,6 +1,6 @@
 from typing import Any, List, TypeVar, Type, cast, Callable
 from datetime import datetime
-import dateutil.parser
+
 
 
 T = TypeVar("T")
@@ -36,8 +36,6 @@ def from_int(x: Any) -> int:
     return x
 
 
-def from_datetime(x: Any) -> datetime:
-    return dateutil.parser.parse(x)
 
 
 class Urls:
